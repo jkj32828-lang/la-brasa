@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>La Brasa Burger</title>
+<link rel="icon" href="img/logo.jpg">
+<meta name="theme-color" content="#151010">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  /* Neutros quentes, puxados para o carvão do logo; "brand" para o vermelho da brasa e o quase-preto */
+  tailwind.config={theme:{extend:{colors:{
+    stone:{50:'#FBF7F4',100:'#F4ECE8',200:'#E8DCD6',300:'#D3C2BB',400:'#A8928A',500:'#7A6863',600:'#5E4D49',700:'#4A3B37',800:'#2E2321',900:'#1C1412'},
+    brand:{red:'#E3261C',deep:'#1C1412'}
+  }}}};
+</script>
+<style>
+  /* Tema do logo: carvão quase preto, brasa vermelha → laranja, cartões brancos */
+  :root{--red:#E3261C;--red-deep:#A8140D;--ember:#FF7A1A;--char:#151010;--cream:#FBF7F4;--ink:#1C1412;--ink-soft:#4A3B37;--mute:#7A6863;--line:rgba(60,20,15,.12);--display:'Anton','Impact',system-ui,sans-serif;--body:'Barlow',system-ui,sans-serif;color-scheme:light}
+  html,body{background:var(--cream);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased}
+  .serif{font-family:var(--display);font-weight:400;letter-spacing:.01em;font-synthesis:none}
+  .gradient-brand{background:linear-gradient(135deg,var(--ember) 0%,var(--red) 55%,var(--red-deep) 100%)}
+  .gradient-brand-text{background:linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .gradient-soft{background:linear-gradient(180deg,#FBF7F4 0%,#F6E4DC 100%)}
+  .hero-fire{background:linear-gradient(90deg,rgba(21,16,16,.96) 0%,rgba(21,16,16,.86) 40%,rgba(21,16,16,.3) 72%,rgba(21,16,16,.12) 100%),url(img/banner.jpg) center/cover,var(--char)}
+  .logo-badge{border:4px solid var(--red);box-shadow:0 0 0 6px rgba(227,38,28,.22),0 24px 48px -16px rgba(0,0,0,.65)}
+  .title-pop{color:#fff;text-shadow:0 3px 0 rgba(0,0,0,.35),0 10px 28px rgba(0,0,0,.55);text-wrap:balance}
+  .btn-primary{background:linear-gradient(135deg,var(--red) 0%,var(--red-deep) 100%);color:#fff;box-shadow:0 3px 0 #6E0B06;transition:transform .15s ease, box-shadow .2s ease, filter .2s ease}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 0 #6E0B06,0 10px 30px -8px rgba(227,38,28,.5);filter:saturate(1.05)}
+  .btn-primary:active{transform:translateY(2px);box-shadow:0 1px 0 #6E0B06}
+  .btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);transition:border-color .2s,background .2s}
+  .btn-ghost:hover{border-color:var(--red);background:#FDECEA}
+  .btn-danger{background:#fee2e2;color:#991b1b;border:1px solid #fecaca;transition:background .2s}
+  .btn-danger:hover{background:#fecaca}
+  .card{background:#fff;border:1px solid var(--line);border-radius:20px;transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;overflow:hidden}
+  .card:hover{transform:translateY(-3px);box-shadow:0 20px 40px -24px rgba(60,20,15,.35);border-color:rgba(227,38,28,.4)}
+  .card-flat{background:#fff;border:1px solid var(--line);border-radius:20px}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;background:#FFF0E3;color:#9A3412;border:1px solid #FED7AA}
+  .chip-red{background:#FEE2E2;color:#991B1B;border-color:#FECACA}
+  .chip-green{background:#D1FAE5;color:#065F46;border-color:#A7F3D0}
+  .chip-blue{background:#DBEAFE;color:#1E40AF;border-color:#BFDBFE}
+  .chip-gray{background:#F5F5F4;color:#44403C;border-color:#E7E5E4}
+  .chip-dark{background:rgba(0,0,0,.6);color:#fff;border:none;backdrop-filter:blur(6px)}
+  .input{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:14px;transition:border-color .2s, box-shadow .2s}
+  .input:focus{outline:none;border-color:var(--red);box-shadow:0 0 0 4px rgba(227,38,28,.15)}
+  .label{font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:5px;display:block}
+  .ring-brand:focus-visible{outline:3px solid var(--ember);outline-offset:2px}
+  .scrollbar-slim::-webkit-scrollbar{width:8px;height:8px}
+  .scrollbar-slim::-webkit-scrollbar-thumb{background:#E8DCD6;border-radius:999px}
+  .fade-in{animation:fadeIn .35s ease both}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .slide-in-right{animation:slideInRight .3s ease both}
+  @keyframes slideInRight{from{transform:translateX(100%)}to{transform:translateX(0)}}
+  .fade-overlay{animation:fadeOverlay .25s ease both}
+  @keyframes fadeOverlay{from{opacity:0}to{opacity:1}}
+  .photo{display:block;width:100%;height:220px;object-fit:cover;background:#F4ECE8}
+  .photo-wrap{position:relative;overflow:hidden}
+  .photo-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.35) 100%);pointer-events:none}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+  .nav-blur{backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px)}
+  .tag{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#B4180F;font-weight:800}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+  [hidden]{display:none !important}
+  .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .star{color:#FFB400}
+  .star-empty{color:#E8DCD6}
+  .addon-row{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);cursor:pointer;transition:border-color .2s,background .2s}
+  .addon-row:hover{border-color:var(--ember);background:#FFF4EC}
+  .addon-row.selected{border-color:var(--red);background:#FDECEA}
+  .admin-tab{padding:10px 18px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;transition:background .15s,color .15s}
+  .admin-tab.active{background:var(--ink);color:#fff}
+  .admin-tab:not(.active):hover{background:#F4ECE8}
+  .status-badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.04em}
+  .skeleton{background:linear-gradient(90deg,#F5F5F4 25%,#E7E5E4 50%,#F5F5F4 75%);background-size:200% 100%;animation:skel 1.4s infinite}
+  @keyframes skel{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* ---- Acompanhamento do pedido (Meus pedidos) ---- */
+  .track{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .track-step{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--mute);text-align:center;line-height:1.2}
+  .track-dot{width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;background:#F4ECE8;font-size:15px}
+  .track-step.done,.track-step.now{color:var(--ink)}
+  .track-step.done .track-dot{background:#FDECEA}
+  .track-step.now .track-dot{background:var(--red);box-shadow:0 0 0 5px rgba(227,38,28,.18);animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 9px rgba(227,38,28,.06)}}
+
+  /* ---- Versão celular (#app): coluna de app com barra de abas embaixo ---- */
+  .app-shell{max-width:28rem;margin:0 auto;min-height:100vh;background:var(--cream);padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  .app-top{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .app-panel{padding:16px}
+  .app-row{display:flex;gap:12px;width:100%;padding:10px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;transition:transform .12s ease,border-color .2s}
+  .app-row:active{transform:scale(.985);border-color:rgba(227,38,28,.4)}
+  .app-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;max-width:28rem;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -10px 24px -18px rgba(60,20,15,.45)}
+  .app-tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-radius:14px;font-size:11px;font-weight:800;color:var(--mute);transition:background .15s,color .15s}
+  .app-tab.active{color:var(--red);background:#FDECEA}
+  .app-badge{position:absolute;top:3px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;background:var(--red)}
+  .app-sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;max-width:28rem;margin:0 auto;max-height:90vh;overflow-y:auto;background:#fff;border-radius:24px 24px 0 0;box-shadow:0 -20px 50px -20px rgba(0,0,0,.4)}
+  .slide-up{animation:slideUp .28s ease both}
+  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+  .toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:70;width:max-content;max-width:calc(100vw - 32px);padding:10px 18px;border-radius:999px;background:var(--ink);color:#fff;font-size:14px;font-weight:800;text-align:center;box-shadow:0 10px 30px -10px rgba(0,0,0,.6)}
+  .toast-error{background:#B4180F}
+  .no-scrollbar{scrollbar-width:none}
+  .no-scrollbar::-webkit-scrollbar{display:none}
+
+  /* ---- Painel (#admin) no celular: abas viram barra fixa embaixo, como no app ---- */
+  @media (max-width:767px){
+    #adminTabs{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -10px 24px -18px rgba(60,20,15,.45)}
+    #adminTabs > div{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;width:100%;padding:0;border:0;border-radius:0}
+    #adminTabs .admin-tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;font-size:11px;font-weight:800;color:var(--mute)}
+    #adminTabs .admin-tab.active{background:#FDECEA;color:var(--red)}
+    #adminTabs .admin-tab span:first-child{font-size:20px;line-height:1}
+    #adminPanel{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- =============== HEADER =============== -->
+<header id="siteHeader" class="sticky top-0 z-30 bg-white/80 nav-blur border-b border-stone-200/70">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-3">
+    <a href="#" class="flex items-center gap-3">
+      <img src="img/logo.jpg" alt="" class="w-10 h-10 rounded-xl object-cover shadow-sm"/>
+      <div class="leading-tight">
+        <div class="serif text-xl text-brand-deep">La Brasa Burger</div>
+        <div class="text-[11px] text-stone-500 -mt-0.5">Nova Friburgo · entrega em 30-60 min</div>
+      </div>
+    </a>
+    <div class="hidden md:block relative w-96" id="searchWrap">
+      <div class="flex items-center gap-2 bg-stone-100 rounded-full px-4 py-2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-stone-400"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="searchInput" maxlength="60" class="bg-transparent outline-none text-sm w-full" placeholder="Buscar no cardápio... (ex: bacon, costela, batata)" autocomplete="off"/>
+        <button id="searchClear" class="text-stone-400 hover:text-stone-700 text-xs font-bold" hidden aria-label="Limpar">✕</button>
+      </div>
+      <div id="searchResults" class="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden z-50 max-h-96 overflow-y-auto fade-in" hidden></div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="#pedidos" id="myOrdersBtn" class="relative flex items-center gap-2 px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 transition font-semibold text-sm ring-brand">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="hidden sm:inline">Meus pedidos</span>
+        <span id="myOrdersBadge" class="hidden absolute -top-1 -right-1 min-w-5 h-5 px-1.5 text-[11px] rounded-full bg-stone-900 text-white font-bold flex items-center justify-center">0</span>
+      </a>
+      <button id="cartBtn" class="relative flex items-center gap-2 px-4 py-2 rounded-full bg-stone-100 hover:bg-stone-200 transition font-semibold text-sm ring-brand">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="21" r="1.5" fill="currentColor"/><circle cx="17" cy="21" r="1.5" fill="currentColor"/></svg>
+        <span class="hidden sm:inline">Carrinho</span>
+        <span id="cartBadge" class="hidden absolute -top-1 -right-1 min-w-5 h-5 px-1.5 text-[11px] rounded-full gradient-brand text-white font-bold flex items-center justify-center">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- =============== VIEW: HOME =============== -->
+<div id="viewHome">
+  <!-- Hero -->
+  <section class="hero-fire border-b border-stone-900">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-12 sm:py-20">
+      <div class="max-w-xl">
+        <span class="chip chip-red mb-4">⚡ 5% OFF pagando no Pix</span>
+        <h1 class="serif title-pop text-5xl sm:text-7xl leading-[1] mb-4 uppercase">Burger artesanal<br/>feito na brasa.</h1>
+        <p class="text-white/85 text-lg mb-6">Fraldinha e costela na chapa, pão macio e muito queijo. Escolha, personalize e pague como preferir — <span class="font-bold text-white">sem precisar criar conta</span>.</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="chip">⭐ <span id="avgRating">—</span> (<span id="reviewCount">0</span> avaliações)</span>
+          <span class="chip">⏱ 30-60 min</span>
+          <span class="chip">📍 Centro · Nova Friburgo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories -->
+  <nav class="sticky top-16 z-20 bg-white/85 nav-blur border-b border-stone-200/70">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-3 flex gap-2 overflow-x-auto scrollbar-slim" id="categoryBar"></div>
+  </nav>
+
+  <!-- Menu -->
+  <main class="max-w-7xl mx-auto px-5 sm:px-8 py-10">
+    <div id="menuGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <p id="emptyMenu" class="text-center text-stone-500 py-16" hidden>Nenhum item encontrado.</p>
+  </main>
+
+  <!-- Reviews -->
+  <section class="bg-white border-y border-stone-200/70">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid md:grid-cols-[1fr,1.3fr] gap-10">
+      <div>
+        <div class="tag mb-2">Avaliações</div>
+        <h2 class="serif text-3xl mb-3">O que dizem nossos clientes</h2>
+        <p class="text-stone-500 mb-6">Compartilhe sua experiência. Sua opinião ajuda a gente a melhorar sempre.</p>
+        <form id="reviewForm" class="space-y-3">
+          <div>
+            <label class="label">Seu nome</label>
+            <input id="revName" maxlength="60" class="input ring-brand" placeholder="Como podemos te chamar?" required/>
+          </div>
+          <div>
+            <label class="label">Nota</label>
+            <div class="flex gap-1" id="revStars" role="radiogroup" aria-label="Avaliação">
+              <button type="button" data-s="1" class="star-btn text-3xl ring-brand">★</button>
+              <button type="button" data-s="2" class="star-btn text-3xl ring-brand">★</button>
+              <button type="button" data-s="3" class="star-btn text-3xl ring-brand">★</button>
+              <button type="button" data-s="4" class="star-btn text-3xl ring-brand">★</button>
+              <button type="button" data-s="5" class="star-btn text-3xl ring-brand">★</button>
+            </div>
+          </div>
+          <div>
+            <label class="label">Comentário</label>
+            <textarea id="revText" maxlength="1000" rows="3" class="input ring-brand" placeholder="Conta pra gente como foi..." required></textarea>
+          </div>
+          <button class="btn-primary px-5 py-3 rounded-xl font-semibold ring-brand">Enviar avaliação</button>
+        </form>
+      </div>
+      <div id="reviewList" class="space-y-4 max-h-[520px] overflow-y-auto scrollbar-slim pr-2"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="gradient-soft">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 py-14">
+      <div class="tag mb-2 text-center">Fale com a gente</div>
+      <h2 class="serif text-3xl text-center mb-2">Dúvida, elogio, sugestão?</h2>
+      <p class="text-center text-stone-500 mb-8">Mande direto pra equipe. Lemos todos os dias.</p>
+      <form id="msgForm" class="card-flat p-6 grid sm:grid-cols-2 gap-3">
+        <div><label class="label">Nome</label><input id="msgName" maxlength="80" class="input ring-brand" required/></div>
+        <div><label class="label">E-mail ou telefone</label><input id="msgContact" maxlength="120" class="input ring-brand" required/></div>
+        <div class="sm:col-span-2"><label class="label">Mensagem</label><textarea id="msgBody" maxlength="2000" rows="4" class="input ring-brand" required></textarea></div>
+        <button class="btn-primary sm:col-span-2 py-3 rounded-xl font-semibold ring-brand">Enviar mensagem</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="bg-brand-deep py-10 text-center text-white/75 text-sm">
+    <img src="img/logo.jpg" alt="" class="w-16 h-16 rounded-2xl object-cover mx-auto mb-3"/>
+    <div class="serif text-xl text-white mb-1">La Brasa Burger</div>
+    <p>Rua Augusto Spinelli, 92 · Centro · Nova Friburgo/RJ</p>
+    <p class="mt-1">Seg a qui 11h–23h · Sex e sáb 11h–0h · Dom 16h30–23h</p>
+    <p class="mt-1"><a href="https://wa.me/5522992025774" target="_blank" rel="noopener" class="underline hover:text-white">WhatsApp (22) 99202-5774</a></p>
+    <p class="mt-2">© 2026 La Brasa Burger</p>
+  </footer>
+</div>
+
+<!-- =============== VIEW: PRODUCT DETAIL =============== -->
+<div id="viewProduct" hidden>
+  <div class="max-w-5xl mx-auto px-5 sm:px-8 py-6">
+    <a href="#" class="inline-flex items-center gap-1 text-sm text-stone-600 hover:text-stone-900 font-semibold">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Voltar ao cardápio
+    </a>
+  </div>
+  <main class="max-w-5xl mx-auto px-5 sm:px-8 pb-14 grid md:grid-cols-[1.1fr,1fr] gap-10">
+    <div>
+      <div class="rounded-3xl overflow-hidden shadow-xl shadow-stone-900/10 relative aspect-[4/3]">
+        <img id="pdImg" class="w-full h-full object-cover" alt=""/>
+        <span id="pdTag" class="absolute top-4 left-4 chip chip-red !bg-white/95" hidden></span>
+      </div>
+    </div>
+    <div>
+      <div id="pdCat" class="tag mb-2"></div>
+      <h1 id="pdName" class="serif text-4xl mb-3"></h1>
+      <p id="pdDesc" class="text-stone-600 leading-relaxed mb-6"></p>
+      <div class="flex items-baseline gap-3 mb-8">
+        <div class="serif text-3xl font-bold gradient-brand-text" id="pdPrice"></div>
+        <span class="text-sm text-stone-500">unidade</span>
+      </div>
+
+      <!-- Add-ons -->
+      <div id="pdAddonsBox">
+        <h3 class="font-semibold mb-3">Personalize (adicionais)</h3>
+        <div id="pdAddons" class="space-y-2 mb-6"></div>
+      </div>
+
+      <!-- Observations -->
+      <div class="mb-6">
+        <label class="label" for="pdObs">Observações para a cozinha</label>
+        <textarea id="pdObs" maxlength="200" class="input ring-brand" rows="2" placeholder="Ex: sem cebola, carne bem passada..."></textarea>
+      </div>
+
+      <!-- Qty + Add -->
+      <div class="flex items-center gap-4 mb-6">
+        <div class="flex items-center gap-2 bg-stone-100 rounded-full p-1">
+          <button id="pdDec" class="w-10 h-10 rounded-full bg-white hover:bg-stone-200 font-bold ring-brand">−</button>
+          <span id="pdQty" class="w-8 text-center font-semibold">1</span>
+          <button id="pdInc" class="w-10 h-10 rounded-full gradient-brand text-white font-bold ring-brand">+</button>
+        </div>
+        <button id="pdAdd" class="btn-primary flex-1 py-3.5 rounded-xl font-semibold ring-brand text-base">Adicionar <span id="pdAddPrice"></span></button>
+      </div>
+      <p class="text-xs text-stone-400">Entrega estimada 30-60 min · Pagamento Pix (5% OFF), cartão ou dinheiro.</p>
+    </div>
+  </main>
+</div>
+
+<!-- =============== VIEW: ADMIN =============== -->
+<div id="viewAdmin" hidden>
+  <!-- Admin header -->
+  <div class="bg-stone-900 text-white border-b border-stone-800">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 h-14 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="9" rx="1.5" stroke="#E3261C" stroke-width="2"/><rect x="14" y="3" width="7" height="5" rx="1.5" stroke="#E3261C" stroke-width="2"/><rect x="14" y="12" width="7" height="9" rx="1.5" stroke="#E3261C" stroke-width="2"/><rect x="3" y="16" width="7" height="5" rx="1.5" stroke="#E3261C" stroke-width="2"/></svg>
+        <div class="text-sm">Painel do dono · <span class="text-red-400 font-bold">La Brasa</span></div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button type="button" id="adminSignOut" class="text-sm text-stone-300 hover:text-white ring-brand" hidden>Sair</button>
+        <a href="https://la-brasa-burger-nf.web.app" target="_blank" rel="noopener" class="text-sm text-stone-300 hover:text-white">Ver site dos clientes ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unauthorized -->
+  <div id="adminGate" hidden class="max-w-md mx-auto px-6 py-20 text-center">
+    <div class="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center mx-auto mb-4">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M12 15v3M6 10V7a6 6 0 1 1 12 0v3M4 10h16v10H4z" stroke="#78716C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h2 class="serif text-2xl mb-2">Acesso restrito</h2>
+    <p id="adminGateMsg" class="text-stone-500 mb-6">Esta área é só para o dono do estabelecimento. Entre com a conta Google do dono.</p>
+    <div class="flex flex-wrap gap-2 justify-center">
+      <button type="button" id="adminSignIn" class="btn-primary px-5 py-3 rounded-xl font-semibold ring-brand">Entrar com Google</button>
+      <button type="button" id="adminGateSignOut" class="btn-ghost px-5 py-3 rounded-xl font-semibold ring-brand" hidden>Sair desta conta</button>
+      <a href="https://la-brasa-burger-nf.web.app" target="_blank" rel="noopener" class="btn-ghost px-5 py-3 rounded-xl font-semibold">Ver site dos clientes ↗</a>
+    </div>
+  </div>
+
+  <div id="adminPanel" hidden>
+    <!-- Stats -->
+    <section class="max-w-7xl mx-auto px-5 sm:px-8 pt-5 md:pt-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        <div class="card-flat p-4 md:p-5">
+          <div class="tag mb-1">Hoje</div>
+          <div class="text-2xl md:text-3xl font-bold" id="statNewOrders">0</div>
+          <div class="text-sm text-stone-500">Pedidos novos</div>
+        </div>
+        <div class="card-flat p-4 md:p-5">
+          <div class="tag mb-1">Hoje</div>
+          <div class="text-xl md:text-3xl font-bold gradient-brand-text" id="statRevenue">R$ 0</div>
+          <div class="text-sm text-stone-500">Receita</div>
+        </div>
+        <div class="card-flat p-4 md:p-5">
+          <div class="tag mb-1">Total</div>
+          <div class="text-2xl md:text-3xl font-bold" id="statReviews">0</div>
+          <div class="text-sm text-stone-500">Avaliações</div>
+        </div>
+        <div class="card-flat p-4 md:p-5">
+          <div class="tag mb-1">Caixa</div>
+          <div class="text-2xl md:text-3xl font-bold" id="statMsgs">0</div>
+          <div class="text-sm text-stone-500">Mensagens</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <nav id="adminTabs" class="max-w-7xl mx-auto px-5 sm:px-8 pt-6" aria-label="Seções do painel">
+      <div class="inline-flex gap-1 bg-white p-1 rounded-2xl border border-stone-200">
+        <button data-at="orders" class="admin-tab active ring-brand"><span>📋</span> <span>Pedidos</span></button>
+        <button data-at="products" class="admin-tab ring-brand"><span>🍔</span> <span>Produtos</span></button>
+        <button data-at="reviews" class="admin-tab ring-brand"><span>⭐</span> <span>Avaliações</span></button>
+        <button data-at="messages" class="admin-tab ring-brand"><span>💬</span> <span>Mensagens</span></button>
+      </div>
+    </nav>
+
+    <!-- Panels -->
+    <main class="max-w-7xl mx-auto px-5 sm:px-8 py-6">
+      <!-- ORDERS -->
+      <section id="atOrders" class="admin-panel">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <h2 class="serif text-2xl">Pedidos</h2>
+          <div class="flex gap-1 bg-stone-100 rounded-full p-1 text-xs font-semibold max-w-full overflow-x-auto no-scrollbar">
+            <button data-of="all" class="orderFilter px-3 py-1.5 rounded-full bg-white shadow-sm">Todos</button>
+            <button data-of="new" class="orderFilter px-3 py-1.5 rounded-full">Novos</button>
+            <button data-of="preparing" class="orderFilter px-3 py-1.5 rounded-full">Preparando</button>
+            <button data-of="ready" class="orderFilter px-3 py-1.5 rounded-full whitespace-nowrap">Saiu p/ entrega</button>
+            <button data-of="delivered" class="orderFilter px-3 py-1.5 rounded-full">Entregues</button>
+          </div>
+        </div>
+        <div id="ordersList" class="space-y-3"></div>
+        <p id="ordersEmpty" class="text-center text-stone-500 py-10" hidden>Nenhum pedido ainda.</p>
+      </section>
+
+      <!-- PRODUCTS -->
+      <section id="atProducts" class="admin-panel" hidden>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="serif text-2xl">Produtos</h2>
+          <button id="newProductBtn" class="btn-primary px-4 py-2 rounded-full font-semibold text-sm ring-brand">+ Novo produto</button>
+        </div>
+        <div id="productsList" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- REVIEWS -->
+      <section id="atReviews" class="admin-panel" hidden>
+        <h2 class="serif text-2xl mb-4">Avaliações</h2>
+        <div id="adminReviewList" class="space-y-3"></div>
+        <p id="revEmpty" class="text-center text-stone-500 py-10" hidden>Sem avaliações ainda.</p>
+      </section>
+
+      <!-- MESSAGES -->
+      <section id="atMessages" class="admin-panel" hidden>
+        <h2 class="serif text-2xl mb-4">Caixa de mensagens</h2>
+        <div id="adminMsgList" class="space-y-3"></div>
+        <p id="msgEmpty" class="text-center text-stone-500 py-10" hidden>Nenhuma mensagem.</p>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- =============== VIEW: MEUS PEDIDOS (painel do cliente) =============== -->
+<div id="viewOrders" hidden>
+  <main class="max-w-3xl mx-auto px-5 sm:px-8 py-6 pb-14">
+    <a href="#" class="inline-flex items-center gap-1 text-sm text-stone-600 hover:text-stone-900 font-semibold mb-5">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Voltar ao cardápio
+    </a>
+    <div class="tag mb-1">Área do cliente</div>
+    <h1 class="serif text-4xl mb-2">Meus pedidos</h1>
+    <p class="text-stone-500 mb-6">Os pedidos feitos neste aparelho aparecem aqui. O status muda sozinho quando a cozinha atualiza.</p>
+    <div id="myOrdersList" class="space-y-4"></div>
+  </main>
+</div>
+
+<!-- =============== VIEW: APP (versão celular) =============== -->
+<div id="viewApp" class="app-shell" hidden>
+  <header class="app-top">
+    <img src="img/logo.jpg" alt="" class="w-10 h-10 rounded-xl object-cover"/>
+    <div class="flex-1 min-w-0 leading-tight">
+      <div class="serif text-xl text-brand-deep">La Brasa Burger</div>
+      <div class="text-[11px] text-stone-500">Nova Friburgo · 30-60 min</div>
+    </div>
+  </header>
+
+  <!-- Início -->
+  <section id="appHome" class="app-panel">
+    <div class="rounded-3xl overflow-hidden mb-4 bg-stone-900 shadow-lg shadow-stone-900/20">
+      <img src="img/banner.jpg" alt="La Brasa Burger" class="w-full aspect-[25/8] object-cover"/>
+      <div class="p-4 flex items-center justify-between gap-3">
+        <div class="serif title-pop text-2xl leading-tight uppercase">Bateu a fome?</div>
+        <span class="chip chip-red !text-[11px] flex-shrink-0">⚡ 5% OFF no Pix</span>
+      </div>
+    </div>
+    <div class="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 mb-4">
+      <span class="chip flex-shrink-0">⭐ <span id="appRating">Novo</span></span>
+      <span class="chip flex-shrink-0">⏱ 30-60 min</span>
+      <span class="chip flex-shrink-0">📍 Centro</span>
+    </div>
+    <div id="appCats" class="flex gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 pb-1 mb-4"></div>
+    <div id="appMenu" class="space-y-3"></div>
+    <p id="appMenuEmpty" class="text-center text-stone-500 py-12" hidden>Nenhum item nesta categoria.</p>
+  </section>
+
+  <!-- Buscar -->
+  <section id="appSearch" class="app-panel" hidden>
+    <h2 class="serif text-3xl text-brand-deep mb-3">Buscar</h2>
+    <div class="flex items-center gap-2 bg-white border border-stone-200 rounded-2xl px-4 py-3 mb-3 focus-within:border-brand-red">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="text-stone-400 flex-shrink-0"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="appSearchInput" maxlength="60" type="search" class="bg-transparent outline-none text-base w-full" placeholder="Lanche, ingrediente ou categoria" autocomplete="off" aria-label="Buscar no cardápio"/>
+    </div>
+    <div id="appSuggest" class="flex flex-wrap gap-2 mb-4"></div>
+    <div id="appSearchResults" class="space-y-3"></div>
+  </section>
+
+  <!-- Carrinho -->
+  <section id="appCart" class="app-panel" hidden>
+    <h2 class="serif text-3xl text-brand-deep">Seu carrinho</h2>
+    <div class="text-xs text-stone-500 mb-4">Entrega para <span id="appCartAddr" class="font-bold text-stone-700">endereço não definido</span></div>
+    <div id="appCartItems" class="space-y-3"></div>
+    <div id="appCartEmpty" class="text-center py-12">
+      <div class="w-20 h-20 rounded-full gradient-soft flex items-center justify-center mx-auto mb-4">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" stroke="#E3261C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="font-bold mb-1">Seu carrinho está vazio</div>
+      <p class="text-sm text-stone-500 mb-5">Escolha um lanche no cardápio para começar.</p>
+      <button type="button" data-go="home" class="btn-primary px-6 py-3 rounded-2xl font-bold ring-brand">Ver cardápio</button>
+    </div>
+    <div id="appCartFooter" class="card-flat p-4 mt-4 space-y-2" hidden>
+      <div class="flex justify-between text-sm text-stone-600"><span>Subtotal</span><span id="appSubtotal">R$ 0,00</span></div>
+      <div class="flex justify-between text-sm text-stone-600"><span>Entrega</span><span id="appDelivery">R$ 8,99</span></div>
+      <div class="flex justify-between text-sm text-stone-600"><span>Desconto</span><span id="appDiscount" class="text-emerald-600">- R$ 0,00</span></div>
+      <div class="divider"></div>
+      <div class="flex justify-between items-baseline pt-1">
+        <span class="font-bold">Total</span>
+        <span id="appTotal" class="serif text-3xl gradient-brand-text">R$ 0,00</span>
+      </div>
+      <button type="button" id="appCheckout" class="btn-primary w-full py-4 rounded-2xl font-bold text-base ring-brand">Ir para pagamento →</button>
+    </div>
+  </section>
+
+  <!-- Meus pedidos (painel do cliente) -->
+  <section id="appOrders" class="app-panel" hidden>
+    <h2 class="serif text-3xl text-brand-deep">Meus pedidos</h2>
+    <p class="text-xs text-stone-500 mb-4">Pedidos feitos neste celular. O status muda sozinho.</p>
+    <div id="appMyOrders" class="space-y-3"></div>
+  </section>
+
+  <!-- Avaliações -->
+  <section id="appReviews" class="app-panel" hidden>
+    <h2 class="serif text-3xl text-brand-deep mb-3">Avaliações</h2>
+    <div class="card-flat p-4 flex items-center gap-4 mb-4">
+      <div id="appAvgBig" class="serif text-5xl text-brand-deep">—</div>
+      <div>
+        <div id="appAvgStars" class="text-lg leading-none mb-1"></div>
+        <div id="appRevCount" class="text-sm text-stone-500">0 avaliações</div>
+      </div>
+    </div>
+    <form id="appRevForm" class="card-flat p-4 space-y-3 mb-5">
+      <div class="font-bold">Conta pra gente como foi</div>
+      <div>
+        <label class="label" for="appRevName">Seu nome</label>
+        <input id="appRevName" maxlength="60" class="input ring-brand" placeholder="Como podemos te chamar?" required/>
+      </div>
+      <div>
+        <span class="label">Nota</span>
+        <div class="flex gap-1" id="appRevStars" role="radiogroup" aria-label="Nota">
+          <button type="button" data-as="1" class="text-3xl px-1 ring-brand" aria-label="1 estrela">★</button>
+          <button type="button" data-as="2" class="text-3xl px-1 ring-brand" aria-label="2 estrelas">★</button>
+          <button type="button" data-as="3" class="text-3xl px-1 ring-brand" aria-label="3 estrelas">★</button>
+          <button type="button" data-as="4" class="text-3xl px-1 ring-brand" aria-label="4 estrelas">★</button>
+          <button type="button" data-as="5" class="text-3xl px-1 ring-brand" aria-label="5 estrelas">★</button>
+        </div>
+      </div>
+      <div>
+        <label class="label" for="appRevText">Comentário</label>
+        <textarea id="appRevText" maxlength="1000" rows="3" class="input ring-brand" placeholder="O que você pediu? Chegou quentinho?" required></textarea>
+      </div>
+      <button class="btn-primary w-full py-3.5 rounded-2xl font-bold ring-brand">Enviar avaliação</button>
+    </form>
+    <div id="appReviewList" class="space-y-3"></div>
+    <p class="text-center text-xs text-stone-500 mt-6">Seg a qui 11h–23h · Sex e sáb 11h–0h · Dom 16h30–23h<br/>Rua Augusto Spinelli, 92 · Centro · <a href="https://wa.me/5522992025774" target="_blank" rel="noopener" class="underline">WhatsApp (22) 99202-5774</a></p>
+  </section>
+
+  <!-- Barra de abas -->
+  <nav class="app-tabbar" aria-label="Navegação do app">
+    <button type="button" data-tab="home" class="app-tab active ring-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11c0-4 3.6-7 8-7s8 3 8 7H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 15h16M5 19h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Cardápio</span>
+    </button>
+    <button type="button" data-tab="search" class="app-tab ring-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Buscar</span>
+    </button>
+    <button type="button" data-tab="cart" class="app-tab ring-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="21" r="1.5" fill="currentColor"/><circle cx="17" cy="21" r="1.5" fill="currentColor"/></svg>
+      <span>Carrinho</span>
+      <span id="appCartBadge" class="app-badge" hidden>0</span>
+    </button>
+    <button type="button" data-tab="orders" class="app-tab ring-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Pedidos</span>
+      <span id="appOrdersBadge" class="app-badge !bg-stone-900" hidden>0</span>
+    </button>
+    <button type="button" data-tab="reviews" class="app-tab ring-brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9L12 3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <span>Avaliações</span>
+    </button>
+  </nav>
+
+  <!-- Detalhe do produto (gaveta de baixo) -->
+  <div id="appSheetOverlay" class="fixed inset-0 bg-black/50 z-40 fade-overlay" hidden></div>
+  <div id="appSheet" class="app-sheet slide-up" role="dialog" aria-modal="true" aria-labelledby="asName" hidden>
+    <div class="relative">
+      <img id="asImg" class="w-full aspect-[4/3] object-cover bg-stone-100" alt=""/>
+      <span id="asTag" class="absolute top-3 left-3 chip chip-red !bg-white/95" hidden></span>
+      <button type="button" id="asClose" class="absolute top-3 right-3 w-10 h-10 rounded-full bg-white/95 shadow flex items-center justify-center ring-brand" aria-label="Fechar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="p-5">
+      <div id="asCat" class="tag mb-1"></div>
+      <h3 id="asName" class="serif text-3xl text-brand-deep leading-tight mb-2"></h3>
+      <p id="asDesc" class="text-sm text-stone-600 leading-relaxed mb-3"></p>
+      <div id="asPrice" class="serif text-2xl gradient-brand-text mb-5"></div>
+      <div id="asAddonsBox">
+        <h4 class="font-bold mb-2">Personalize (adicionais)</h4>
+        <div id="asAddons" class="space-y-2 mb-5"></div>
+      </div>
+      <label class="label" for="asObs">Observações para a cozinha</label>
+      <textarea id="asObs" maxlength="200" rows="2" class="input ring-brand" placeholder="Ex: sem cebola, carne bem passada..."></textarea>
+    </div>
+    <div class="sticky bottom-0 bg-white border-t border-stone-200 p-4 flex items-center gap-3">
+      <div class="flex items-center gap-1 bg-stone-100 rounded-full p-1">
+        <button type="button" id="asDec" class="w-10 h-10 rounded-full bg-white font-bold ring-brand" aria-label="Diminuir quantidade">−</button>
+        <span id="asQty" class="w-7 text-center font-bold">1</span>
+        <button type="button" id="asInc" class="w-10 h-10 rounded-full gradient-brand text-white font-bold ring-brand" aria-label="Aumentar quantidade">+</button>
+      </div>
+      <button type="button" id="asAdd" class="btn-primary flex-1 py-3.5 rounded-2xl font-bold ring-brand">Adicionar <span id="asAddPrice"></span></button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== CART DRAWER =============== -->
+<div id="cartOverlay" class="fixed inset-0 bg-black/40 z-40 fade-overlay" hidden></div>
+<aside id="cartDrawer" class="fixed top-0 right-0 h-full w-full sm:w-[440px] bg-white z-50 shadow-2xl slide-in-right flex flex-col" hidden>
+  <div class="p-5 border-b border-stone-200 flex items-center justify-between">
+    <div>
+      <div class="serif text-2xl">Seu pedido</div>
+      <div class="text-xs text-stone-500">Entrega para <span class="font-semibold text-stone-700" id="cartAddr">endereço não definido</span></div>
+    </div>
+    <button id="closeCart" class="w-10 h-10 rounded-full hover:bg-stone-100 flex items-center justify-center ring-brand" aria-label="Fechar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div id="cartItems" class="flex-1 overflow-y-auto scrollbar-slim p-5 space-y-4"></div>
+  <div id="cartEmpty" class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+    <div class="w-20 h-20 rounded-full gradient-soft flex items-center justify-center mb-4">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.5L21 8H6" stroke="#E3261C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="font-semibold mb-1">Seu carrinho está vazio</div>
+    <p class="text-sm text-stone-500">Adicione lanches do cardápio para começar.</p>
+  </div>
+  <div id="cartFooter" class="border-t border-stone-200 p-5 space-y-3 bg-stone-50/60" hidden>
+    <div class="flex justify-between text-sm text-stone-600"><span>Subtotal</span><span id="subtotalV">R$ 0,00</span></div>
+    <div class="flex justify-between text-sm text-stone-600"><span>Entrega</span><span id="deliveryV">R$ 8,99</span></div>
+    <div class="flex justify-between text-sm text-stone-600"><span>Desconto</span><span id="discountV" class="text-emerald-600">- R$ 0,00</span></div>
+    <div class="divider"></div>
+    <div class="flex justify-between items-baseline">
+      <span class="font-semibold">Total</span>
+      <span id="totalV" class="serif text-2xl gradient-brand-text font-bold">R$ 0,00</span>
+    </div>
+    <button id="checkoutBtn" class="btn-primary w-full py-3.5 rounded-xl font-semibold ring-brand">Ir para pagamento →</button>
+  </div>
+</aside>
+
+<!-- =============== CHECKOUT MODAL =============== -->
+<div id="checkoutOverlay" class="fixed inset-0 bg-black/50 z-50 fade-overlay" hidden></div>
+<div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4" hidden>
+  <div class="bg-white rounded-3xl w-full max-w-xl max-h-[92vh] overflow-y-auto scrollbar-slim shadow-2xl fade-in">
+    <div class="p-6 border-b border-stone-200 flex items-center justify-between sticky top-0 bg-white rounded-t-3xl z-10">
+      <div>
+        <div class="tag mb-1">Resumo & pagamento</div>
+        <div class="serif text-2xl">Finalizar pedido</div>
+      </div>
+      <button id="closeCheckout" class="w-10 h-10 rounded-full hover:bg-stone-100 flex items-center justify-center ring-brand" aria-label="Fechar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="p-6 space-y-6">
+      <section>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold">Itens</h3>
+          <button id="editCart" class="text-sm font-semibold text-red-700 hover:text-red-800">Editar</button>
+        </div>
+        <ul id="summaryItems" class="space-y-2 text-sm"></ul>
+      </section>
+
+      <section>
+        <h3 class="font-semibold mb-3">Seus dados</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input id="guestName" maxlength="80" class="input ring-brand" placeholder="Seu nome"/>
+          <input id="guestPhone" maxlength="30" class="input ring-brand" placeholder="WhatsApp (22) 99999-9999" inputmode="tel"/>
+        </div>
+      </section>
+
+      <!-- Address -->
+      <section>
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold">Endereço de entrega</h3>
+          <button id="editAddr" class="text-xs font-semibold text-red-700">Alterar</button>
+        </div>
+        <div id="addrDisplay" class="rounded-2xl border border-stone-200 p-4 flex items-start gap-3">
+          <div class="w-9 h-9 rounded-xl gradient-soft flex items-center justify-center flex-shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7 7-13a7 7 0 1 0-14 0c0 6 7 13 7 13Z" stroke="#B4180F" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5" stroke="#B4180F" stroke-width="2"/></svg>
+          </div>
+          <div class="flex-1" id="addrText">
+            <div class="font-semibold text-sm">Nenhum endereço definido</div>
+            <div class="text-xs text-stone-500 mt-1">Clique em "Alterar" para informar.</div>
+          </div>
+        </div>
+        <div id="addrForm" class="mt-3 space-y-3" hidden>
+          <div class="grid grid-cols-[1fr,auto] gap-2">
+            <input id="aCep" class="input ring-brand" placeholder="CEP (ex: 28610-000)" maxlength="9" inputmode="numeric"/>
+            <button type="button" id="searchCep" class="btn-ghost px-4 py-3 rounded-xl font-semibold text-sm">Buscar</button>
+          </div>
+          <div id="cepHint" class="text-xs text-stone-500">Digite o CEP e clique em "Buscar" ou preencha manualmente.</div>
+          <div class="grid grid-cols-[1fr,120px] gap-2">
+            <input id="aStreet" maxlength="120" class="input ring-brand" placeholder="Rua / Avenida"/>
+            <input id="aNumber" maxlength="20" class="input ring-brand" placeholder="Número"/>
+          </div>
+          <input id="aComplement" maxlength="80" class="input ring-brand" placeholder="Complemento (opcional)"/>
+          <input id="aNeighborhood" maxlength="60" class="input ring-brand" placeholder="Bairro"/>
+          <div class="grid grid-cols-[1fr,80px] gap-2">
+            <input id="aCity" maxlength="60" class="input ring-brand" placeholder="Cidade"/>
+            <input id="aState" class="input ring-brand" placeholder="UF" maxlength="2"/>
+          </div>
+          <div class="flex gap-2 pt-1">
+            <button type="button" id="saveAddr" class="btn-primary px-5 py-3 rounded-xl font-semibold ring-brand">Salvar</button>
+            <button type="button" id="cancelAddr" class="btn-ghost px-5 py-3 rounded-xl font-semibold">Cancelar</button>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h3 class="font-semibold mb-3">Pagamento</h3>
+        <div id="payMethods" class="grid grid-cols-3 gap-2">
+          <button data-pay="pix" class="pay-opt rounded-2xl border-2 border-red-600 bg-red-50/70 py-3 px-2 text-sm font-semibold ring-brand">
+            <div class="text-xl mb-1">⚡</div>Pix
+            <div class="text-[11px] font-normal text-emerald-700">5% OFF</div>
+          </button>
+          <button data-pay="card" class="pay-opt rounded-2xl border-2 border-stone-200 py-3 px-2 text-sm font-semibold hover:border-red-300 ring-brand">
+            <div class="text-xl mb-1">💳</div>Cartão
+            <div class="text-[11px] font-normal text-stone-500">na entrega</div>
+          </button>
+          <button data-pay="cash" class="pay-opt rounded-2xl border-2 border-stone-200 py-3 px-2 text-sm font-semibold hover:border-red-300 ring-brand">
+            <div class="text-xl mb-1">💵</div>Dinheiro
+            <div class="text-[11px] font-normal text-stone-500">troco</div>
+          </button>
+        </div>
+      </section>
+
+      <section class="rounded-2xl bg-stone-50 p-5 space-y-2">
+        <div class="flex justify-between text-sm"><span class="text-stone-600">Subtotal</span><span id="cSubtotal">R$ 0,00</span></div>
+        <div class="flex justify-between text-sm"><span class="text-stone-600">Entrega</span><span id="cDelivery">R$ 8,99</span></div>
+        <div class="flex justify-between text-sm"><span class="text-stone-600">Desconto</span><span id="cDiscount" class="text-emerald-600">- R$ 0,00</span></div>
+        <div class="divider"></div>
+        <div class="flex justify-between items-baseline pt-1">
+          <span class="font-semibold">Total</span>
+          <span id="cTotal" class="serif text-3xl gradient-brand-text font-bold">R$ 0,00</span>
+        </div>
+      </section>
+
+      <button id="placeOrder" class="btn-primary w-full py-4 rounded-2xl font-bold text-base ring-brand">Fazer pedido</button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== PRODUCT EDIT MODAL (admin) =============== -->
+<div id="prodOverlay" class="fixed inset-0 bg-black/50 z-50 fade-overlay" hidden></div>
+<div id="prodModal" class="fixed inset-0 z-50 flex items-center justify-center p-4" hidden>
+  <div class="bg-white rounded-3xl w-full max-w-lg max-h-[92vh] overflow-y-auto scrollbar-slim shadow-2xl fade-in">
+    <div class="p-6 border-b border-stone-200 flex items-center justify-between sticky top-0 bg-white rounded-t-3xl">
+      <div class="serif text-2xl" id="prodModalTitle">Novo produto</div>
+      <button id="closeProd" class="w-9 h-9 rounded-full hover:bg-stone-100 flex items-center justify-center ring-brand" aria-label="Fechar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <form id="prodForm" class="p-6 space-y-3">
+      <input type="hidden" id="pfId"/>
+      <div>
+        <label class="label">Imagem</label>
+        <div class="flex gap-3 items-center">
+          <div id="pfImgPreview" class="w-20 h-20 rounded-xl bg-stone-100 flex items-center justify-center text-stone-400 text-xs">sem imagem</div>
+          <label class="btn-ghost px-4 py-2.5 rounded-xl font-semibold text-sm cursor-pointer">
+            <input type="file" id="pfImgFile" accept="image/*" class="hidden"/>
+            Enviar foto
+          </label>
+          <span id="pfImgStatus" class="text-xs text-stone-500"></span>
+        </div>
+      </div>
+      <div class="grid grid-cols-[1fr,120px] gap-2">
+        <div><label class="label">Nome</label><input id="pfName" class="input ring-brand" required/></div>
+        <div><label class="label">Preço (R$)</label><input id="pfPrice" type="number" step="0.01" min="0" class="input ring-brand" required/></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2">
+        <div><label class="label">Categoria</label><input id="pfCat" class="input ring-brand" placeholder="Burgers Monstruosos" list="pfCatList" required/><datalist id="pfCatList"></datalist></div>
+        <div><label class="label">Etiqueta (opcional)</label><input id="pfTag" class="input ring-brand" placeholder="Novidade"/></div>
+      </div>
+      <div><label class="label">Descrição</label><textarea id="pfDesc" class="input ring-brand" rows="3" required></textarea></div>
+      <label class="flex items-center gap-2 text-sm pt-1"><input id="pfAvail" type="checkbox" checked class="w-4 h-4"/> Disponível no cardápio</label>
+      <label class="flex items-center gap-2 text-sm"><input id="pfAddons" type="checkbox" class="w-4 h-4"/> Mostrar adicionais ("Turbine seu burger")</label>
+      <div class="flex gap-2 pt-2">
+        <button class="btn-primary flex-1 py-3 rounded-xl font-semibold ring-brand">Salvar</button>
+        <button type="button" id="deleteProd" class="btn-danger px-4 py-3 rounded-xl font-semibold" hidden>Excluir</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =============== SUCCESS MODAL =============== -->
+<div id="successOverlay" class="fixed inset-0 bg-black/50 z-50 fade-overlay" hidden></div>
+<div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4" hidden>
+  <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl fade-in overflow-hidden">
+    <div class="gradient-brand p-8 text-center text-white">
+      <div class="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="serif text-3xl mb-1">Pedido confirmado!</div>
+      <p class="text-white/90 text-sm">Nº <span id="orderId" class="font-bold">#000</span></p>
+    </div>
+    <div class="p-6 text-center">
+      <p class="text-stone-600 mb-5">Recebemos seu pedido e já vamos preparar. Acompanhe o status em <b>Meus pedidos</b> — ele muda sozinho quando a cozinha atualizar.</p>
+      <div class="flex flex-col gap-2">
+        <button type="button" id="trackOrder" class="btn-primary w-full py-3.5 rounded-xl font-semibold ring-brand">Acompanhar pedido</button>
+        <button type="button" id="closeSuccess" class="btn-ghost w-full py-3 rounded-xl font-semibold ring-brand">Continuar comprando</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =============== AVISO + CONFIRMAÇÃO (na página, no lugar de alert/confirm) =============== -->
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<div id="confirmOverlay" class="fixed inset-0 bg-black/50 z-[60] fade-overlay" hidden></div>
+<div id="confirmModal" class="fixed inset-0 z-[60] flex items-center justify-center p-4" role="alertdialog" aria-modal="true" aria-labelledby="confirmMsg" hidden>
+  <div class="bg-white rounded-3xl w-full max-w-sm shadow-2xl fade-in p-6 text-center">
+    <p id="confirmMsg" class="font-bold text-lg mb-5"></p>
+    <div class="flex gap-2">
+      <button type="button" id="confirmNo" class="btn-ghost flex-1 py-3 rounded-xl font-semibold ring-brand">Voltar</button>
+      <button type="button" id="confirmYes" class="btn-danger flex-1 py-3 rounded-xl font-semibold ring-brand"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============== CONSTANTS & SEED ============== */
+/* Cardápio inicial (vem do Brendi da loja): o banco é gravado com ele na primeira entrada do dono */
+const SEED_PRODUCTS = [
+  {id:'dobro-de-burger-baconese',cat:'Promoções do Dia',name:'DOBRO de Burger Baconese',desc:'Dois Baconese, o burger mais vendido, com um descontão! Pão gergelim, baconese, burger de fraldinha 200g, queijo mussarela, bacon em tiras, cebola roxa, alface e tomate.',price:69.90,tag:'Promoção',img:'img/p/dobro-de-burger-baconese.jpg',available:true,addons:true,pos:0},
+  {id:'combo-familia',cat:'Promoções do Dia',name:'Combo família',desc:'2 Burger Baconese, 1 burger La Brasinha, 2 batatas ondulada, 2 molhos, 1 Batata Smile, 2 refri lata, 1 mini refri e 1 danoninho.',price:134.90,tag:'Promoção',img:'img/p/combo-familia.jpg',available:true,addons:false,pos:1},
+  {id:'contra-file-acebolado',cat:'Pratos Executivos',name:'Contra Filé Acebolado',desc:'Arroz, feijão, contra filé acebolado, farofa, batata frita e salada.',price:39.90,tag:'',img:'img/p/contra-file-acebolado.jpg',available:true,addons:false,pos:2},
+  {id:'contra-file-com-catupiry-e-alho',cat:'Pratos Executivos',name:'Contra Filé com Catupiry e Alho',desc:'Arroz, feijão, contra filé com Catupiry e alho frito, farofa, batata frita e salada.',price:49.90,tag:'',img:'img/p/contra-file-com-catupiry-e-alho.jpg',available:true,addons:false,pos:3},
+  {id:'omelete-salada',cat:'Pratos Executivos',name:'Omelete Salada',desc:'Omelete, Alface e tomate',price:19.90,tag:'',img:'img/p/omelete-salada.jpg',available:true,addons:false,pos:4},
+  {id:'picanha',cat:'Pratos Executivos',name:'Picanha',desc:'Picanha, Arroz branco, Feijão, Batata Frita, Salada e Farofa.',price:49.90,tag:'',img:'img/p/picanha.jpg',available:true,addons:false,pos:5},
+  {id:'file-de-frango-a-milanesa',cat:'Pratos Executivos',name:'Filé de Frango À Milanesa',desc:'Arroz, feijão, filé de frango empanado, farofa, batata frita e salada',price:29.90,tag:'',img:'img/p/file-de-frango-a-milanesa.jpg',available:true,addons:false,pos:6},
+  {id:'contra-file-e-salada',cat:'Pratos Executivos',name:'Contra Filé e Salada',desc:'Contra Filé, Alface e tomate',price:39.90,tag:'',img:'img/p/contra-file-e-salada.jpg',available:true,addons:false,pos:7},
+  {id:'file-de-frango-a-parmegiana',cat:'Pratos Executivos',name:'Filé de Frango a Parmegiana',desc:'Filé de Frango a Parmegiana, Arroz branco, Batata Frita e Salada.',price:34.90,tag:'',img:'img/p/file-de-frango-a-parmegiana.jpg',available:true,addons:false,pos:8},
+  {id:'copa-lombo',cat:'Pratos Executivos',name:'Copa Lombo',desc:'Arroz ,Feijão, Farofa, Copa lombo, Batata Frita, Tomate, Alface',price:29.90,tag:'',img:'img/p/copa-lombo.jpg',available:true,addons:false,pos:9},
+  {id:'file-de-frango-grelhado',cat:'Pratos Executivos',name:'Filé de Frango Grelhado',desc:'Filé de Frango Grelhado, Arroz branco, Feijão, Batata Frita, Salada e Farofa.',price:29.90,tag:'',img:'img/p/file-de-frango-grelhado.jpg',available:true,addons:false,pos:10},
+  {id:'file-de-frango-grelhado-com-queijo',cat:'Pratos Executivos',name:'Filé de Frango Grelhado com Queijo',desc:'Arroz, feijão, filé de frango grelhado com queijo, farofa, batata frita e salada.',price:34.90,tag:'',img:'img/p/file-de-frango-grelhado-com-queijo.jpg',available:true,addons:false,pos:11},
+  {id:'bife-a-cavalo',cat:'Pratos Executivos',name:'Bife a Cavalo',desc:'Bife de Contra Filé, Ovo Frito, Arroz branco, Feijão, Batata Frita e Salada.',price:42.90,tag:'',img:'img/p/bife-a-cavalo.jpg',available:true,addons:false,pos:12},
+  {id:'frango-em-tiras-acebolado',cat:'Pratos Executivos',name:'Frango em Tiras Acebolado',desc:'Frango em Tiras Acebolado, Arroz branco, Feijão, Batata Frita, Salada e Farofa.',price:29.90,tag:'',img:'img/p/frango-em-tiras-acebolado.jpg',available:true,addons:false,pos:13},
+  {id:'frango-com-salada',cat:'Pratos Executivos',name:'Frango Com Salada',desc:'Filé de frango, Alface e tomate',price:22.90,tag:'',img:'img/p/frango-com-salada.jpg',available:true,addons:false,pos:14},
+  {id:'linguica-toscana',cat:'Pratos Executivos',name:'Linguiça Toscana',desc:'Linguiça Toscana, Arroz branco, Feijão, Batata Frita, Salada e Farofa.',price:29.90,tag:'',img:'img/p/linguica-toscana.jpg',available:true,addons:false,pos:15},
+  {id:'omelete',cat:'Pratos Executivos',name:'Omelete',desc:'Omelete, Arroz, feijão, farofa, batata frita e salada.',price:22.90,tag:'',img:'img/p/omelete.jpg',available:true,addons:false,pos:16},
+  {id:'picanha-catupiry-e-alho',cat:'Pratos Executivos',name:'Picanha Catupiry e Alho',desc:'Arroz, feijão, picanha, catupiry e alho, farofa, batata frita e salada',price:59.90,tag:'',img:'img/p/picanha-catupiry-e-alho.jpg',available:true,addons:false,pos:17},
+  {id:'burger-baconese-jr',cat:'Mais Vendidos',name:'Burger Baconese Jr.',desc:'Pão com gergelim, maionese baconese, burger fraldinha 100g, queijo muçarela, bacon em tiras, cebola roxa, alface e tomate.',price:32.90,tag:'🔥 Mais vendido',img:'img/p/burger-baconese-jr.jpg',available:true,addons:true,pos:18},
+  {id:'burger-baconese',cat:'Mais Vendidos',name:'Burger Baconese',desc:'Pão gergelim, baconese, burger de fraldinha 200g, queijo mussarela, bacon em tiras, cebola roxa, alface e tomate.',price:38.90,tag:'🔥 Mais vendido',img:'img/p/burger-baconese.jpg',available:true,addons:true,pos:19},
+  {id:'la-brasa-200g',cat:'Mais Vendidos',name:'La Brasa 200g',desc:'Pão brioche, molho barbecue, burger de fraldinha 200g e queijo prato. O clássico da casa',price:33.90,tag:'🔥 Mais vendido',img:'img/p/la-brasa-200g.jpg',available:true,addons:true,pos:20},
+  {id:'australiano',cat:'Mais Vendidos',name:'Australiano',desc:'Pão australiano, maionese verde, burger costela 200g, queijo prato, bacon em tiras, cebola roxa e rúcula',price:40.90,tag:'🔥 Mais vendido',img:'img/p/australiano.jpg',available:true,addons:true,pos:21},
+  {id:'baconpiry-burger',cat:'Mais Vendidos',name:'Baconpiry Burger',desc:'Pão de Brioche, maionese gourmet, buger fraldinha 200gr, queijo mussarela, catupiry e bacon em tiras.',price:42.83,tag:'🔥 Mais vendido',img:'img/p/baconpiry-burger.jpg',available:true,addons:true,pos:22},
+  {id:'costelao-delicioso-e-suculento',cat:'Mais Vendidos',name:'Costelão Delicioso e Suculento.',desc:'Pão francês, maionese verde, burger de costela 200g, queijo prato, bacon em tiras, ovo, cebola roxa, alface e tomate.',price:42.90,tag:'🔥 Mais vendido',img:'img/p/costelao-delicioso-e-suculento.jpg',available:true,addons:true,pos:23},
+  {id:'burger-la-queso-plaza',cat:'Mais Vendidos',name:'Burger La Queso Plaza',desc:'Descubra o sabor inigualável do \'La Queso Plaza\', um dos nossos Combos Mais Vendidos no Ifood. Delicie-se com nosso pão de brioche fresquinho, generosamente coberto com uma saborosa maionese verde. A crocância da alface e do tomate fresco proporciona um contraste perfeito com o bacon, cuidadosamente grelhado até atingir a textura perfeita. O coração do prato é nosso suculento e macio burguer de costela de 200g, acentuado pelo sabor marcante do queijo prato empanado 130g. Este prato é uma verdadeira explosão de sabores que você não pode deixar de experimentar!',price:47.90,tag:'🔥 Mais vendido',img:'img/p/burger-la-queso-plaza.jpg',available:true,addons:true,pos:24},
+  {id:'burger-extra-cheese-bacon',cat:'Mais Vendidos',name:'Burger Extra Cheese Bacon',desc:'Apresentamos o \'Burger Extra Cheese Bacon\', uma extravagante combinação gastronômica para os amantes de hambúrgueres. Este prato majestoso possui duas suculentas fatias de hambúrguer fraldinha de 100g cada, garantindo um sabor incomparável e uma textura irresistível. Acompanham quatro crocantes fatias de bacon, que acrescentam uma explosão de sabor e textura. O toque final é dado por duas generosas fatias de queijo prato, derretidas à perfeição e que complementam a combinação de maneira sublime. Tudo isso é harmoniosamente acomodado em um pão de brioche macio e saboroso, realçado por nossa exclusiva maionese gourmet. Um prato verdadeiramente indulgente da categoria \'Burger\'s 200g\' que promete uma experiência culinária inesquecível.',price:44.90,tag:'🔥 Mais vendido',img:'img/p/burger-extra-cheese-bacon.jpg',available:true,addons:true,pos:25},
+  {id:'brasaritos',cat:'Extraordinários',name:'Brasaritos',desc:'Pão de brioche, maionese gourmet, cebola roxa, burguer de costela 200g, queijo cheddar bisnaga, bacon em tiras e doritos.',price:49.90,tag:'',img:'img/p/brasaritos.jpg',available:true,addons:false,pos:26},
+  {id:'brasa-rings',cat:'Extraordinários',name:'Brasa Rings',desc:'Pão de brioche, maionese gourmet, rúcula, burguer de costela 200g, queijo prato fatiado, onion rings',price:46.90,tag:'',img:'img/p/brasa-rings.jpg',available:true,addons:false,pos:27},
+  {id:'doce-brasa',cat:'Extraordinários',name:'Doce Brasa',desc:'Pão de brioche, maionese gourmet, burguer de fraldinha 200g, queijo prato fatiado, doce de leite, bacon crispy',price:41.90,tag:'',img:'img/p/doce-brasa.jpg',available:true,addons:false,pos:28},
+  {id:'kit-kat',cat:'Sobremesas',name:'Kit Kat',desc:'',price:7.50,tag:'',img:'img/p/kit-kat.jpg',available:true,addons:false,pos:29},
+  {id:'burger-doce-de-leite',cat:'Sobremesas',name:'Burger Doce de Leite',desc:'Pão Australiano, morango, doce de leite e chantilly',price:26.90,tag:'',img:'img/p/burger-doce-de-leite.jpg',available:true,addons:false,pos:30},
+  {id:'burger-doce-nutella-muitaaa-nutella-de-v',cat:'Sobremesas',name:'Burger Doce Nutella (Muitaaa Nutella de verdade)',desc:'Pão Australiano, morango, Nutella e chantilly',price:32.90,tag:'',img:'img/p/burger-doce-nutella-muitaaa-nutella-de-v.jpg',available:true,addons:false,pos:31},
+  {id:'files-de-coxa-sobrecoxa-desossada',cat:'F de Frango',name:'Filés de Coxa (sobrecoxa desossada)',desc:'Frango empanado + molho. Porção: 3 Unidades (aprox. 250g).',price:22.90,tag:'',img:'img/p/files-de-coxa-sobrecoxa-desossada.jpg',available:true,addons:false,pos:32},
+  {id:'chicken-burger-barbecue-empanado',cat:'F de Frango',name:'Chicken Burger Barbecue Empanado',desc:'Pão de brioche, 1 filé de peito frito, rúcula, maionese baconese, molho barbecue, 2 fatias de bacon.',price:30.90,tag:'',img:'img/p/chicken-burger-barbecue-empanado.jpg',available:true,addons:false,pos:33},
+  {id:'chicken-ball',cat:'F de Frango',name:'Chicken Ball',desc:'Bolinha de frango empanado. Porção: Chicken Ball 15 Unidades.',price:24.90,tag:'',img:'img/p/chicken-ball.jpg',available:true,addons:false,pos:34},
+  {id:'sassami-de-frango',cat:'F de Frango',name:'Sassami de Frango',desc:'Sassami +molho. Porção: 3 Unidades (aprox. 250g).',price:22.90,tag:'',img:'img/p/sassami-de-frango.jpg',available:true,addons:false,pos:35},
+  {id:'buffalo-wings-molho-picante',cat:'F de Frango',name:'Buffalo Wings Molho Picante',desc:'Frango empanado molho picante. Porção: 3 Unidades (aprox. 250g).',price:24.90,tag:'',img:'img/p/buffalo-wings-molho-picante.jpg',available:true,addons:false,pos:36},
+  {id:'filezinho-de-frango',cat:'F de Frango',name:'Filézinho de Frango',desc:'frango empanado + molho. Porção: 3 Unidades (aprox. 250g).',price:22.90,tag:'',img:'img/p/filezinho-de-frango.jpg',available:true,addons:false,pos:37},
+  {id:'mini-coxas-de-frango',cat:'F de Frango',name:'Mini Coxas de Frango',desc:'Mini coxas empanada + molho. Porção: 3 Unidades (aprox. 250g).',price:23.90,tag:'',img:'img/p/mini-coxas-de-frango.jpg',available:true,addons:false,pos:38},
+  {id:'chicken-burger-hot-empanado',cat:'F de Frango',name:'Chicken Burger Hot Empanado',desc:'Pão de Brioche, 1 Filé de peito, Molho Hot, Mussarela, Crispy de Bacon e Rucula',price:33.90,tag:'',img:'img/p/chicken-burger-hot-empanado.jpg',available:true,addons:false,pos:39},
+  {id:'chicken-ball-bacon',cat:'F de Frango',name:'Chicken Ball Bacon',desc:'Bolinha de frango empanado com bacon. Porção: Chicken Ball Bacon 15 Unidades.',price:26.90,tag:'',img:'img/p/chicken-ball-bacon.jpg',available:true,addons:false,pos:40},
+  {id:'tulipa-meio-da-asa',cat:'F de Frango',name:'Tulipa ( meio da asa)',desc:'nossas deliciosas tulipas empanadas. Porção: 3 Unidades (aprox. 250g).',price:25.90,tag:'',img:'img/p/tulipa-meio-da-asa.jpg',available:true,addons:false,pos:41},
+  {id:'chicken-burger-bacon-empanado',cat:'F de Frango',name:'Chicken Burger Bacon Empanado',desc:'Pão de Brioche, 1 File de Peito, molho rose , Mussarela e Bacon',price:32.90,tag:'',img:'img/p/chicken-burger-bacon-empanado.jpg',available:true,addons:false,pos:42},
+  {id:'chicken-ball-cheese',cat:'F de Frango',name:'Chicken Ball Cheese',desc:'Bolinha de frango empanado com queijo. Porção: Chicken Ball Queijo 15 Unidades.',price:26.90,tag:'',img:'img/p/chicken-ball-cheese.jpg',available:true,addons:false,pos:43},
+  {id:'chicken-salada-bacon-empanado',cat:'F de Frango',name:'Chicken Salada Bacon Empanado',desc:'Pão de Brioche, 1 Filé de peito, Molho rose, Mussarela, Bacon, Alface e Tomate',price:33.90,tag:'',img:'img/p/chicken-salada-bacon-empanado.jpg',available:true,addons:false,pos:44},
+  {id:'chicken-burger-mostarda-e-mel-empanado',cat:'F de Frango',name:'Chicken Burger Mostarda e Mel Empanado',desc:'Pão de Brioche, 1 Filé de peito, Molho mostarda e mel, Muçarela, Crispy de Bacon e Rúcula',price:33.90,tag:'',img:'img/p/chicken-burger-mostarda-e-mel-empanado.jpg',available:true,addons:false,pos:45},
+  {id:'bebidas',cat:'Bebidas',name:'Bebidas',desc:'Porção: Guaravita.',price:5.50,tag:'',img:'img/p/bebidas.jpg',available:true,addons:false,pos:46},
+  {id:'agua-sem-gas',cat:'Bebidas',name:'Água sem gas',desc:'',price:6.00,tag:'',img:'img/p/agua-sem-gas.jpg',available:true,addons:false,pos:47},
+  {id:'agua-com-gas',cat:'Bebidas',name:'Água com gás',desc:'',price:6.50,tag:'',img:'img/p/agua-com-gas.jpg',available:true,addons:false,pos:48},
+  {id:'guarana-antartica-1-5l',cat:'Bebidas',name:'Guaraná Antartica 1,5l',desc:'',price:18.90,tag:'',img:'img/p/guarana-antartica-1-5l.jpg',available:true,addons:false,pos:49},
+  {id:'guarana-antartica-1-5l-zero',cat:'Bebidas',name:'Guaraná Antartica 1,5l Zero',desc:'',price:18.90,tag:'',img:'img/p/guarana-antartica-1-5l-zero.jpg',available:true,addons:false,pos:50},
+  {id:'smash-baconese',cat:'Smash Burger 70g',name:'Smash Baconese',desc:'Pão com gergelim, maionese baconese, burger costela 70g, queijo mussarela, bacon em tiras, cebola roxa, alface e tomate.',price:34.90,tag:'',img:'img/p/smash-baconese.jpg',available:true,addons:true,pos:51},
+  {id:'burger-smash-cheddar-cremoso',cat:'Smash Burger 70g',name:'Burger Smash Cheddar Cremoso',desc:'Pão de Brioche, Maionese Gourmet, Smash Burger de Costela 70g, Cheddar , Cebola Caramelizada e Bacon. Porção: Cebola roxa.',price:3.00,tag:'Recomendado',img:'img/p/burger-smash-cheddar-cremoso.jpg',available:true,addons:true,pos:52},
+  {id:'smash-burger-catupiry',cat:'Smash Burger 70g',name:'Smash Burger Catupiry',desc:'Pão de Brioche, Maionese Gourmet, Smash Burger de Costela 70g, Catupiry, Cebola Caramelizada e Bacon. Porção: Cebola roxa.',price:3.00,tag:'',img:'img/p/smash-burger-catupiry.jpg',available:true,addons:true,pos:53},
+  {id:'smash-australiano',cat:'Smash Burger 70g',name:'Smash Australiano',desc:'Pão Australiano, Burger de Costela 70g, Bacon, Queijo Prato, Rúcula e Cebola Roxa e maionese verde.',price:29.90,tag:'',img:'img/p/smash-australiano.jpg',available:true,addons:true,pos:54},
+  {id:'batata-ondulada-pequena',cat:'Porções Individuais',name:'Batata ondulada Pequena',desc:'Aproximadamente 180 gramas',price:15.90,tag:'',img:'img/p/batata-ondulada-pequena.jpg',available:true,addons:false,pos:55},
+  {id:'batata-ondulada-pequena-com-molho-4-quei',cat:'Porções Individuais',name:'Batata Ondulada Pequena com Molho 4 Queijos e Bacon',desc:'Aproximadamente 180g de batata ondulada com molho 4 queijos e bacon Com geléia de pimenta a parte',price:22.90,tag:'',img:'img/p/batata-ondulada-pequena-com-molho-4-quei.jpg',available:true,addons:false,pos:56},
+  {id:'batata-cheddar-bacon-individual',cat:'Porções Individuais',name:'Batata Cheddar Bacon individual',desc:'Aproximadamente 180g de batata ondulada com cheddar e bacon',price:22.90,tag:'',img:'img/p/batata-cheddar-bacon-individual.jpg',available:true,addons:false,pos:57},
+  {id:'batata-palito-pequena',cat:'Porções Individuais',name:'Batata palito Pequena',desc:'Aproximadamente 180 gramas',price:15.90,tag:'',img:'img/p/batata-palito-pequena.jpg',available:true,addons:false,pos:58},
+  {id:'batata-rustica-pequena',cat:'Porções Individuais',name:'Batata rústica Pequena',desc:'Aproximadamente 180 gramas',price:15.90,tag:'',img:'img/p/batata-rustica-pequena.jpg',available:true,addons:false,pos:59},
+  {id:'crispy-de-queijo-gouda',cat:'Porções Individuais',name:'Crispy de Queijo Gouda',desc:'Queijo gouda com geléia de pimenta ou molho 4 queijos',price:29.90,tag:'',img:'img/p/crispy-de-queijo-gouda.jpg',available:true,addons:false,pos:60},
+  {id:'onion-pequena',cat:'Porções Individuais',name:'Onion Pequena',desc:'8 anéis de cebola',price:17.90,tag:'',img:'img/p/onion-pequena.jpg',available:true,addons:false,pos:61},
+  {id:'pop-bacon',cat:'Porções Individuais',name:'Pop Bacon',desc:'Deliciosos cubinhos de bacon empanado. Acompanha Geleia de Pimenta. (200gr)',price:26.90,tag:'',img:'img/p/pop-bacon.jpg',available:true,addons:false,pos:62},
+  {id:'burger-de-frango-com-catupiry-e-bacon-no',cat:'Burgers Especiais',name:'Burger de Frango com Catupiry e Bacon NOVO',desc:'Pão de brioche, burger de sassami empanado, molho baconese, catupiry e bacon em tiras, uma verdadeira explosão de sabores.',price:33.90,tag:'',img:'img/p/burger-de-frango-com-catupiry-e-bacon-no.jpg',available:true,addons:true,pos:63},
+  {id:'burger-vegano-base-grao-de-bico-com-cebo',cat:'Burgers Especiais',name:'Burger Vegano Base Grão de Bico com Cebola Caramelizada',desc:'Pão australiano, maionese da casa, tomate, alface, queijo gouda, cebola caramelizada, burger vegetariano 200g (grão de bico com especiarias)',price:33.90,tag:'',img:'img/p/burger-vegano-base-grao-de-bico-com-cebo.jpg',available:true,addons:true,pos:64},
+  {id:'burger-la-brasa-jr',cat:'Favoritos 100g',name:'Burger La Brasa Jr.',desc:'Pão de brioche, burger de fraldinha 100g, queijo prato e molho barbecue.',price:27.90,tag:'Promoção',img:'img/p/burger-la-brasa-jr.jpg',available:true,addons:true,pos:65},
+  {id:'burger-turbinho',cat:'Favoritos 100g',name:'Burger Turbinho',desc:'Pão italiano, molho da casa, burger de fraldinha 100g, queijo prato, bacon em tiras, cebola caramelizada, picles, alface e tomate.',price:32.90,tag:'',img:'img/p/burger-turbinho.jpg',available:true,addons:true,pos:66},
+  {id:'burger-baconpiry-jr',cat:'Favoritos 100g',name:'Burger Baconpiry Jr.',desc:'Pão de brioche, maionese gourmet, burger fraldinha 100g, queijo muçarela, Catupiry e bacon em tiras.',price:34.90,tag:'',img:'img/p/burger-baconpiry-jr.jpg',available:true,addons:true,pos:67},
+  {id:'burger-cheddar-jr',cat:'Favoritos 100g',name:'Burger Cheddar Jr.',desc:'Pão com gergelim, molho barbecue, burger fraldinha 100g, cheddar, bacon em tiras, picles e cebola caramelizada.',price:34.90,tag:'',img:'img/p/burger-cheddar-jr.jpg',available:true,addons:true,pos:68},
+  {id:'combo-2-baconeses',cat:'Combos',name:'Combo 2 Baconeses',desc:'Pão com gergelim, maionese baconese, burger fraldinha 200g, queijo muçarela, bacon em tiras, cebola roxa, alface e tomate',price:74.90,tag:'Novidade',img:'img/p/combo-2-baconeses.jpg',available:true,addons:false,pos:69},
+  {id:'combo-la-brasa-batata-refri-molho',cat:'Combos',name:'Combo La Brasa + Batata + Refri+ molho',desc:'1 La Brasa (Pão de Batata, burger fraldinha 200gr, queijo prato e molho barbecue) 1 Combo ( batata + molho + refri lata)',price:58.90,tag:'',img:'img/p/combo-la-brasa-batata-refri-molho.jpg',available:true,addons:false,pos:70},
+  {id:'combo-caixa-brasa',cat:'Combos',name:'Combo Caixa Brasa',desc:'Uma experiência única pra quem ama burger de verdade! 🍔✨ Nossa Caixa Especial La Brasa vem com: • 2 Burgers Baconese 200g • 1 Burger La Brasa 200g • 2 porções de batata frita crocante • 2 potes de molho à sua escolha GRÁTIS!',price:139.90,tag:'Promoção',img:'img/p/combo-caixa-brasa.jpg',available:true,addons:false,pos:71},
+  {id:'combo-baconese-batata-molho-refri',cat:'Combos',name:'Combo Baconese+ Batata+ Molho + Refri',desc:'1 Baconese (Pão de Gergelim, molho baconese, burger de fraldinha 200g, queijo mussarela, bacon em tiras, cebola roxa, alface e tomate) 1 Combo ( batata + molho + refri lata)',price:63.90,tag:'',img:'img/p/combo-baconese-batata-molho-refri.jpg',available:true,addons:false,pos:72},
+  {id:'burger-la-brasinha-kids',cat:'Combos',name:'Burger La Brasinha Kids',desc:'Pão de brioche, catchup, burger fraldinha 100g, queijo muçarela. + Batata smile + 05 unidades +bebida mini + Danoninho.',price:37.90,tag:'',img:'img/p/burger-la-brasinha-kids.jpg',available:true,addons:false,pos:73},
+  {id:'combo-1-batata-molho-refri',cat:'Combos',name:'Combo 1: Batata + Molho + Refri',desc:'Batata+ molho+ refrigerante',price:28.90,tag:'',img:'img/p/combo-1-batata-molho-refri.jpg',available:true,addons:false,pos:74},
+  {id:'la-brasa-picante-com-geleia-de-pimenta',cat:'Burgers Monstruosos',name:'La Brasa Picante Com Geléia de Pimenta',desc:'Pão de brioche, maionese gourmet, alface, burger fraldinha 200gr, queijo gouda e geleia de pimenta.',price:39.90,tag:'',img:'img/p/la-brasa-picante-com-geleia-de-pimenta.jpg',available:true,addons:true,pos:75},
+  {id:'la-parma',cat:'Burgers Monstruosos',name:'La Parma',desc:'Pão com gergelim, maionese gourmet, burger de fraldinha 200gr, cebola roxa, parmesão e bacon em tiras.',price:42.90,tag:'Promoção',img:'img/p/la-parma.jpg',available:true,addons:true,pos:76},
+  {id:'la-brasa-tudo',cat:'Burgers Monstruosos',name:'La Brasa Tudo',desc:'Pão australiano, maionese verde, bacon em tiras, burger fraldinha 200gr, ovo, presunto, queijo prato, alface e tomate.',price:42.90,tag:'',img:'img/p/la-brasa-tudo.jpg',available:true,addons:true,pos:77},
+  {id:'burger-la-brasa-turbo',cat:'Burgers Monstruosos',name:'Burger La Brasa Turbo',desc:'Pão italiano, molho da casa, burger fraldinha 200gr, queijo prato, bacon em tiras, cebola caramelizada, picles, alface e tomate.',price:42.90,tag:'',img:'img/p/burger-la-brasa-turbo.jpg',available:true,addons:true,pos:78},
+  {id:'texano',cat:'Burgers Monstruosos',name:'Texano',desc:'Nosso \'Burger Texano com Burger de Fraldinha + Costela Desfiada\' é uma deliciosa combinação de sabores e texturas. Começamos com um robusto pão italiano, macio por dentro e crocante por fora. Acrescentamos a exclusiva maionese da casa, feita com ingredientes frescos e um toque secreto. Em seguida, vem o nosso suculento burger de fraldinha de 100gr, cuidadosamente grelhado para preservar todo o seu sabor. A rúcula adiciona uma nota picante, enquanto o tomate fresco traz umidade e doçura. A cebola roxa proporciona uma crocância surpreendente e o Catupiry, famoso por sua cremosidade, adiciona uma camada extra de indulgência. Finalizamos com alho frito para um toque acentuado e uma generosa porção de costela desfiada, lentamente cozida até ficar tenra e suculenta. Este é um burger que vai além do comum, proporcionando uma experiência gastronômica inesquecível.',price:42.90,tag:'',img:'img/p/texano.jpg',available:true,addons:true,pos:79},
+  {id:'cowboy',cat:'Burgers Monstruosos',name:'Cowboy',desc:'Nossa deliciosa opção \'Burger Cowboy\' traz uma combinação poderosa de sabor e textura. O prato é composto por um pão de brioche macio e fresquinho, acompanhado de nossa exclusiva maionese gourmet. O coração do prato é um suculento burger de fraldinha de 100g, preparado com maestria e temperado à perfeição. O Catupiry cremoso adiciona uma camada extra de sabor, em perfeita harmonia com o toque crocante do alho frito. A carne seca desfiada é um verdadeiro deleite para o paladar, e a couve crispy adiciona uma textura surpreendente. Aproveite este Burger Cowboy de 200g, uma verdadeira explosão de sabores!',price:42.90,tag:'',img:'img/p/cowboy.jpg',available:true,addons:true,pos:80},
+  {id:'burger-quatro-queijos',cat:'Burgers Monstruosos',name:'Burger Quatro Queijos',desc:'Delicie-se com nosso \'Quatro Queijos\', uma obra-prima, um Clássico e Nobre!!\'. Este saboroso prato apresenta um suculento hambúrguer de Fraldinha de 200g, cuidadosamente acomodado em um pão brioche macio e fresco. Com uma generosa camada de maionese gourmet, que realça ainda mais o sabor da picanha, este burger é uma delícia absoluta. O toque final fica por conta da combinação premiada de queijos: a cremosidade da muçarela, a suavidade do Catupiry, a intensidade do parmesão e a personalidade do gorgonzola. Experimente e se apaixone por este festival de sabores!',price:48.90,tag:'',img:'img/p/burger-quatro-queijos.jpg',available:true,addons:true,pos:81},
+  {id:'burger-alhopiry-com-catupiry-e-alho',cat:'Burgers Monstruosos',name:'Burger Alhopiry com Catupiry e Alho',desc:'Este \'Burguer de Fraldinha\' é uma nobre e deliciosa experiência gastronômica! O pão australiano possui uma textura única, que se harmoniza perfeitamente com o generoso burger de Fraldinha de 200g, preparado com cuidado para manter o sabor e a suculência. O Catupiry adiciona uma cremosidade irresistível, enquanto o alho frito traz uma crocância que é um deleite para o paladar. O bacon, sempre um clássico, dá um toque defumado ao prato, e as tiras frescas de rúcula equilibram tudo com seu sabor levemente picante. Finalizado com nosso exclusivo molho da casa, este é um burger que vai além do comum e se destaca em sabor e qualidade.',price:48.90,tag:'',img:'img/p/burger-alhopiry-com-catupiry-e-alho.jpg',available:true,addons:true,pos:82},
+  {id:'burger-double-costelao',cat:'Burgers Monstruosos',name:'Burger Double Costelão',desc:'Pão italiano, maionese verde, burger de costela 2x 200g, 2x ovos, 2x queijo prato, 2x bacon em tiras, 2x cebola roxa, alface e tomate',price:59.90,tag:'',img:'img/p/burger-double-costelao.jpg',available:true,addons:true,pos:83},
+  {id:'burger-double-cheddar',cat:'Burgers Monstruosos',name:'Burger Double Cheddar',desc:'Pão com gergelim, molho barbecue, burger fraldinha 2x 200g, 2x cheddar, 2x bacon em tiras, 2x picles, 2x cebola caramelizada',price:59.90,tag:'',img:'img/p/burger-double-cheddar.jpg',available:true,addons:true,pos:84},
+  {id:'burger-la-brasa-tudo-double',cat:'Burgers Monstruosos',name:'Burger La Brasa Tudo Double',desc:'Pão australiano, maionese verde, bacon, alface, tomate, 2 ovos, 2 burger de fraldinha, presunto e queijo prato',price:59.90,tag:'',img:'img/p/burger-la-brasa-tudo-double.jpg',available:true,addons:true,pos:85},
+  {id:'burger-double-turbo',cat:'Burgers Monstruosos',name:'Burger Double Turbo',desc:'Pão italiano, molho da casa, 2 burgers fraldinha 200g, 2x queijo prato, bacon em tiras, cebola caramelizada, picles, alface e tomate',price:59.90,tag:'',img:'img/p/burger-double-turbo.jpg',available:true,addons:true,pos:86},
+  {id:'alhopiry-double-com-catupiry-e-alho',cat:'Burgers Monstruosos',name:'Alhopiry double com Catupiry e Alho',desc:'Pão australiano, molho da casa, burger Fraldinha 2x 200g, Catupiry 2x, alho frito 2x, bacon em tiras 2x e rúcula',price:79.90,tag:'',img:'img/p/alhopiry-double-com-catupiry-e-alho.jpg',available:true,addons:true,pos:87},
+  {id:'batata-ondulada-grande-com-molho-4-queij',cat:'Porções para Compartilhar',name:'Batata Ondulada Grande com Molho 4 Queijos e Bacon',desc:'(650gr Peso antes da fritura).Porção Inteira de Batata Ondulada com Molho 4 queijos e Bacon.. Devido ao tempo de transporte, não garantimos o máximo de temperatura e crocância das batatas)',price:54.90,tag:'',img:'img/p/batata-ondulada-grande-com-molho-4-queij.jpg',available:true,addons:false,pos:88},
+  {id:'batata-ondulada-grande-com-cheddar-e-bac',cat:'Porções para Compartilhar',name:'Batata Ondulada Grande com cheddar e Bacon',desc:'(650gr Peso antes da fritura).Porção Inteira de Batata Ondulada com Cheddar e Bacon.. Devido ao tempo de transporte, não garantimos o máximo de temperatura e crocância das batatas)',price:54.90,tag:'',img:'img/p/batata-ondulada-grande-com-cheddar-e-bac.jpg',available:true,addons:false,pos:89},
+  {id:'batata-ondulada-grande',cat:'Porções para Compartilhar',name:'Batata ondulada Grande',desc:'(650gr Peso antes da fritura). Batata Ondulada +2 Maionese a sua escolha de 30gr.',price:46.90,tag:'',img:'img/p/batata-ondulada-grande.jpg',available:true,addons:false,pos:90},
+  {id:'batata-rustica-grande',cat:'Porções para Compartilhar',name:'Batata rústica Grande',desc:'650g Batata Rústica + 2 Maionese a sua escolha de 30gr. (Devido ao tempo de transporte, não garantimos o máximo de temperatura e crocância das batatas)',price:46.90,tag:'',img:'img/p/batata-rustica-grande.jpg',available:true,addons:false,pos:91},
+  {id:'batata-palito-grande',cat:'Porções para Compartilhar',name:'Batata Palito Grande',desc:'650gr. Batata Palito +2 Maionese a sua escolha de 30gr. (650gr Peso antes da fritura).',price:46.90,tag:'',img:'img/p/batata-palito-grande.jpg',available:true,addons:false,pos:92},
+  {id:'onion-rings-grande',cat:'Porções para Compartilhar',name:'Onion rings Grande',desc:'24 Anéis de cebola empanados + 2 Maionese a sua escolha de 30gr.',price:47.90,tag:'',img:'img/p/onion-rings-grande.jpg',available:true,addons:false,pos:93},
+  {id:'burger-supreme-costela-desfiada-com-catu',cat:'Novidades',name:'Burger Supreme Costela Desfiada com Catupiry Empanado',desc:'Pão Brioche, Maionese Verde, Burger 100gr Costela, Bacon em Tiras, Rúcula e Empanado de Costela Desfiada com Catupiry Magnifico!!!',price:52.90,tag:'Promoção',img:'img/p/burger-supreme-costela-desfiada-com-catu.jpg',available:true,addons:true,pos:94},
+  {id:'burger-arretado',cat:'Novidades',name:'Burger Arretado',desc:'Pão de batata, maionese gourmet, alface, burger fraldinha 200gr, queijo gouda e geleia de pimenta e onion ring.',price:46.90,tag:'',img:'img/p/burger-arretado.jpg',available:true,addons:true,pos:95},
+  {id:'burger-supreme-com-catupiry-empanado',cat:'Novidades',name:'Burger Supreme com Catupiry Empanado',desc:'Pão com Gergelin, Maionese Baconese, Burger de Fraldinha 200gr, Bacon em tiras e Empanado de Catupiry 150gr Magnífico!!!',price:50.90,tag:'',img:'img/p/burger-supreme-com-catupiry-empanado.jpg',available:true,addons:true,pos:96},
+  {id:'bolinho-de-carne-seca-com-catupiry',cat:'Novidades',name:'Bolinho De Carne Seca Com Catupiry',desc:'Deliciosos e suculentos bolinhos de carne seca, recheados com o cremoso e inconfundível Catupiry. Cada unidade, com 40g, é meticulosamente preparada, garantindo uma explosão de sabores a cada mordida. A porção contém 6 unidades, perfeitas para compartilhar em família ou desfrutar individualmente que promete uma experiência culinária inesquecível.',price:47.90,tag:'',img:'img/p/bolinho-de-carne-seca-com-catupiry.jpg',available:true,addons:false,pos:97},
+  {id:'bolinho-de-costela-com-catupiry',cat:'Novidades',name:'Bolinho De Costela Com Catupiry',desc:'Deliciosos e suculentos bolinhos de costela, recheados com o cremoso e inconfundível Catupiry. Cada unidade, com 40g, é meticulosamente preparada, garantindo uma explosão de sabores a cada mordida. A porção contém 6 unidades, perfeitas para compartilhar em família ou desfrutar individualmente que promete uma experiência culinária inesquecível.',price:47.90,tag:'',img:'img/p/bolinho-de-costela-com-catupiry.jpg',available:true,addons:false,pos:98},
+  {id:'bolinho-de-grao-de-bico-veg',cat:'Novidades',name:'Bolinho De Grão De Bico (Veg)',desc:'Deliciosos e suculentos bolinhos de grão de bico e especiarias. Cada unidade, com 40g, é meticulosamente preparada, garantindo uma explosão de sabores a cada mordida. A porção contém 6 unidades, perfeitas para compartilhar em família ou desfrutar individualmente que promete uma experiência culinária inesquecível.',price:32.90,tag:'',img:'img/p/bolinho-de-grao-de-bico-veg.jpg',available:true,addons:false,pos:99},
+  {id:'caramelo',cat:'Hot Dogs',name:'Caramelo',desc:'Pão de hot dog, salsicha alemã Frankfurt, molho barbecue,cheddar, cebola caramelizada e bacon crispy',price:30.90,tag:'Recomendado',img:'img/p/caramelo.jpg',available:true,addons:false,pos:100},
+  {id:'chimidog',cat:'Hot Dogs',name:'Chimidog',desc:'Pão de Hot dog, maionese verde, salsicha Alemã Frankfurt, molho chimichurri, cebola roxa, azeitona, crispy de bacon',price:30.90,tag:'',img:'img/p/chimidog.jpg',available:true,addons:false,pos:101},
+  {id:'goudog',cat:'Hot Dogs',name:'Goudog',desc:'Pão de Hot dog, maionese gourmet, salsicha Alemã Frankfurt, queijo gouda derretido e geleia de pimenta',price:30.90,tag:'',img:'img/p/goudog.jpg',available:true,addons:false,pos:102},
+  {id:'mastin',cat:'Hot Dogs',name:'Mastin',desc:'Pão de hot dog, salsicha alemã Frankfurt, maionese da casa, molho top secret, queijo parmesão ralado e bacon crispy',price:30.90,tag:'',img:'img/p/mastin.jpg',available:true,addons:false,pos:103},
+  {id:'pancho',cat:'Hot Dogs',name:'Pancho',desc:'Pão de Hot dog com Catupiry na chapa, salsicha Alemã Frankfurt, molho 4 queijos e bacon crispy',price:30.90,tag:'',img:'img/p/pancho.jpg',available:true,addons:false,pos:104},
+  {id:'molho-baconese-artesanal',cat:'Molhos Extras',name:'Molho Baconese artesanal',desc:'Maionese caseira a base de bacon. Potinho com 30ml',price:4.50,tag:'',img:'img/p/molho-baconese-artesanal.jpg',available:true,addons:false,pos:105},
+  {id:'maionese-gourmet-a-queridinha-do-momento',cat:'Molhos Extras',name:'Maionese gourmet (a queridinha do momento)',desc:'Maionese caseira a base de mostarda. Potinho com 30ml.',price:4.50,tag:'',img:'img/p/maionese-gourmet-a-queridinha-do-momento.jpg',available:true,addons:false,pos:106},
+  {id:'maionese-da-casa-artesanal',cat:'Molhos Extras',name:'Maionese da casa artesanal',desc:'Maionese caseira a base Tomate seco. Potinho com 30ml',price:4.50,tag:'',img:'img/p/maionese-da-casa-artesanal.jpg',available:true,addons:false,pos:107},
+  {id:'maionese-verde-caseira',cat:'Molhos Extras',name:'Maionese Verde Caseira',desc:'Presentamos nossa irresistível Maionese Verde, uma receita caseira meticulosamente preparada. Este condimento é uma fusão harmoniosa de cebolinha fresca e alho vibrante, oferecendo um sabor único e marcante. Cada potinho contém 30ml de uma delícia cremosa e suntuosa que irá realçar e complementar perfeitamente seus pratos. Ideal para quem aprecia os encantos de uma culinária simples, mas repleta de sabor. Venha se deliciar com nossa Maionese Verde e transforme suas refeições em momentos inesquecíveis!',price:4.50,tag:'',img:'img/p/maionese-verde-caseira.jpg',available:true,addons:false,pos:108},
+  {id:'barbecue',cat:'Molhos Extras',name:'Barbecue',desc:'Molho barbecue.Potinho 30ml.',price:4.50,tag:'',img:'img/p/barbecue.jpg',available:true,addons:false,pos:109},
+  {id:'geleia-de-pimenta-caseira',cat:'Molhos Extras',name:'Geleia de pimenta caseira',desc:'Geleia de pimenta caseira. Potinho com 30ml.',price:5.50,tag:'',img:'img/p/geleia-de-pimenta-caseira.jpg',available:true,addons:false,pos:110},
+  {id:'molho-rose',cat:'Molhos Extras',name:'Molho Rose',desc:'',price:4.50,tag:'',img:'img/p/molho-rose.jpg',available:true,addons:false,pos:111},
+  {id:'mostarda-e-mel',cat:'Molhos Extras',name:'Mostarda e mel',desc:'',price:4.50,tag:'',img:'img/p/mostarda-e-mel.jpg',available:true,addons:false,pos:112},
+  {id:'hot',cat:'Molhos Extras',name:'Hot',desc:'',price:4.50,tag:'',img:'img/p/hot.jpg',available:true,addons:false,pos:113},
+  {id:'goiabada-com-barbecue-e-pimenta',cat:'Molhos Extras',name:'Goiabada com barbecue e pimenta',desc:'',price:6.50,tag:'',img:'img/p/goiabada-com-barbecue-e-pimenta.jpg',available:true,addons:false,pos:114},
+  {id:'goiabada-com-pimenta',cat:'Molhos Extras',name:'Goiabada com pimenta',desc:'',price:6.50,tag:'',img:'img/p/goiabada-com-pimenta.jpg',available:true,addons:false,pos:115},
+  {id:'creme-de-cheddar',cat:'Molhos Extras',name:'Creme de Cheddar',desc:'',price:7.50,tag:'',img:'img/p/creme-de-cheddar.jpg',available:true,addons:false,pos:116},
+  {id:'piscininha-de-cheddar-e-bacon',cat:'Molhos Extras',name:'Piscininha de Cheddar e bacon',desc:'Deliciosa piscina de Cheddar e Bacon preparado artesanalmente, suave e cremosa (Serve 2-3 Pessoas). 200g',price:22.90,tag:'',img:'img/p/piscininha-de-cheddar-e-bacon.jpg',available:true,addons:false,pos:117},
+  {id:'budweiser',cat:'Cervejas',name:'Budweiser',desc:'',price:13.90,tag:'',img:'img/p/budweiser.jpg',available:true,addons:false,pos:118},
+  {id:'corona',cat:'Cervejas',name:'Corona',desc:'',price:15.90,tag:'',img:'img/p/corona.jpg',available:true,addons:false,pos:119},
+  {id:'heineken',cat:'Cervejas',name:'Heineken',desc:'',price:15.90,tag:'',img:'img/p/heineken.jpg',available:true,addons:false,pos:120},
+  {id:'stella-artois',cat:'Cervejas',name:'Stella Artois',desc:'',price:13.90,tag:'',img:'img/p/stella-artois.jpg',available:true,addons:false,pos:121},
+  {id:'combo-5-heineken',cat:'Cervejas',name:'Combo 5 Heineken',desc:'Combo 5 Heineken long neck 330ml',price:65.90,tag:'',img:'img/p/combo-5-heineken.jpg',available:true,addons:false,pos:122},
+  {id:'combo-5-budweiser',cat:'Cervejas',name:'Combo 5 Budweiser',desc:'Combo 5 Budweiser long neck 330ml',price:55.90,tag:'',img:'img/p/combo-5-budweiser.jpg',available:true,addons:false,pos:123},
+];
+
+/* Ordem das categorias no cardápio; categoria nova criada no painel vai para o fim */
+const CAT_ORDER = ['Mais Vendidos','Promoções do Dia','Novidades','Smash Burger 70g','Favoritos 100g','Burgers Monstruosos','Extraordinários','Burgers Especiais','Combos','Hot Dogs','F de Frango','Porções Individuais','Porções para Compartilhar','Pratos Executivos','Molhos Extras','Sobremesas','Bebidas','Cervejas'];
+
+/* "Turbine seu burger": aparece nos produtos com addons:true */
+const ADDONS = [
+  {id:'carne',name:'Carne de fraldinha 100g',price:10.00,emoji:'🥩'},
+  {id:'bacon',name:'Bacon',price:5.50,emoji:'🥓'},
+  {id:'mussarela',name:'Mussarela',price:3.90,emoji:'🧀'},
+  {id:'cebola-caramelizada',name:'Cebola caramelizada',price:5.50,emoji:'🧅'},
+  {id:'picles',name:'Picles',price:4.00,emoji:'🥒'},
+  {id:'cebola-roxa',name:'Cebola roxa',price:3.00,emoji:'🧅'},
+  {id:'ovo',name:'Ovo frito',price:3.00,emoji:'🍳'},
+  {id:'salada',name:'Salada (alface e tomate)',price:3.00,emoji:'🥬'},
+];
+
+const WHATSAPP = '5522992025774';
+/* Dois sites, um banco só: o mesmo código abre como painel do dono em la-brasa-dono.web.app
+   e como site dos clientes no resto (os testes trocam com window.OWNER_SITE) */
+let OWNER_SITE = window.OWNER_SITE ?? location.hostname.startsWith('la-brasa-dono.');
+const SITE_TITLE = () => OWNER_SITE ? 'Painel do dono · La Brasa' : 'La Brasa Burger';
+const DELIVERY_FEE = 8.99;
+const PIX_DISCOUNT = 0.05;
+
+/* Cardápio na ordem da loja: categoria (CAT_ORDER), depois a posição de cada produto */
+const catRank = c => { const i = CAT_ORDER.indexOf(c); return i<0 ? CAT_ORDER.length : i; };
+function sortProducts(list){
+  return list.sort((a,b)=> catRank(a.cat)-catRank(b.cat) || (a.cat||'').localeCompare(b.cat||'') || (a.pos??999)-(b.pos??999) || (a.name||'').localeCompare(b.name||''));
+}
+
+/* ============== STATE ============== */
+const state = {
+  products: sortProducts(SEED_PRODUCTS.slice()),
+  cart: [],
+  payment: 'pix',
+  activeCat: 'Todos',
+  search: '',
+  address: null,
+  guestName: '',
+  guestPhone: '',
+  reviews: [],
+  messages: [],
+  orders: [],
+  orderFilter: 'all',
+  adminTab: 'orders',
+  revRating: 5,
+  isOwner: false,
+  pd: { product:null, qty:1, addons:new Set(), obs:'' },
+  pfImgUrl: null,
+  myOrders: {},   // pedidos deste aparelho, id → dados ao vivo do banco
+};
+
+let db = null, backend = null;
+
+/* ============== STORAGE (local) ============== */
+const L_CART='labrasa_cart_v1', L_ADDR='labrasa_addr_v1', L_PROFILE='labrasa_profile_v1', L_ORDERS='labrasa_orders_v1';
+const safe = (f,d)=>{ try{return f()}catch{return d} };
+const load = (k,d)=>safe(()=>JSON.parse(localStorage.getItem(k))??d,d);
+const save = (k,v)=>safe(()=>localStorage.setItem(k,JSON.stringify(v)));
+
+/* ============== HELPERS ============== */
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const brl = n => 'R$ '+Number(n).toFixed(2).replace('.',',');
+const uid = () => Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+/* Id de pedido impossível de adivinhar: quem tem o id consegue ver o pedido (é assim que o cliente acompanha) */
+const secureId = () => Array.from(crypto.getRandomValues(new Uint8Array(15)), b=>b.toString(16).padStart(2,'0')).join('');
+/* Código que o cliente e o dono falam ("pedido #K7P3Q"): 5 caracteres sem os que se confundem (0/O, 1/I/L, 2/Z, 5/S, 8/B).
+   Com 4 números sorteados, 100 pedidos já repetiam código */
+const orderCode = () => '#'+Array.from(crypto.getRandomValues(new Uint8Array(5)), b=>'ACDEFGHJKMNPQRTUVWXY34679'[b%25]).join('');
+/* Texto de um campo, limpo e no tamanho que o banco aceita (o maxlength do campo usa o mesmo número) */
+const field = sel => { const el = $(sel); return el.value.trim().slice(0, +el.maxLength > 0 ? +el.maxLength : 2000); };
+
+/* Aviso na página e confirmação na página, no lugar de alert()/confirm() */
+let _toastT;
+function notify(msg, kind){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.toggle('toast-error', kind==='error');
+  t.hidden = false;
+  clearTimeout(_toastT); _toastT = setTimeout(()=>{ t.hidden = true; }, kind==='error'?3500:2200);
+}
+let _confirmDone = null;
+function confirmDialog(msg, okLabel){
+  $('#confirmMsg').textContent = msg;
+  $('#confirmYes').textContent = okLabel;
+  $('#confirmOverlay').hidden = false; $('#confirmModal').hidden = false;
+  $('#confirmNo').focus();
+  return new Promise(res=>{ _confirmDone = res; });
+}
+function closeConfirm(ok){
+  $('#confirmOverlay').hidden = true; $('#confirmModal').hidden = true;
+  if(_confirmDone){ _confirmDone(ok); _confirmDone = null; }
+}
+$('#confirmYes').addEventListener('click', ()=>closeConfirm(true));
+$('#confirmNo').addEventListener('click', ()=>closeConfirm(false));
+$('#confirmModal').addEventListener('click', e=>{ if(e.target===e.currentTarget) closeConfirm(false); });
+
+/* Grava um documento do cliente; se não der (sem login, sem permissão, falha), avisa e devolve false */
+async function saveDoc(path, data, what){
+  if(!db){ notify('Não deu para conectar e enviar '+what+'. Verifique a internet e recarregue a página.','error'); return false; }
+  try{ await db.doc(path).set(data); return true; }
+  catch(err){
+    console.warn(path+' write failed', err);
+    notify(err?.code==='permission-denied'
+      ? 'Não deu para enviar '+what+'. Confira os dados preenchidos e tente de novo.'
+      : 'Não deu para enviar '+what+'. Verifique a internet e tente de novo.', 'error');
+    return false;
+  }
+}
+
+/* ============== ROUTER ============== */
+function route(){
+  const h = location.hash.replace(/^#/,'') || '';
+  const views = {home:$('#viewHome'), product:$('#viewProduct'), admin:$('#viewAdmin'), app:$('#viewApp'), orders:$('#viewOrders')};
+  Object.values(views).forEach(v=>v.hidden=true);
+  // Site do dono: só o painel, sem cardápio nem carrinho
+  if(OWNER_SITE){
+    $('#siteHeader').hidden = true;
+    closeAppSheet(); closeCart();
+    views.admin.hidden=false;
+    renderAdmin();
+    window.scrollTo(0,0);
+    return;
+  }
+  // Mesmo link: no celular (tela estreita, ou celular deitado) a página inicial abre como app
+  const isPhone = window.matchMedia('(max-width: 767px), (pointer: coarse) and (max-height: 500px)').matches;
+  const useApp = h==='app' || (isPhone && !h.startsWith('product-'));
+  $('#siteHeader').hidden = useApp;
+  if(!useApp) closeAppSheet();
+  if(useApp){
+    if(h==='pedidos') appState.tab = 'orders';
+    views.app.hidden=false;
+    renderApp();
+    setAppTab(appState.tab);
+  } else if(h==='pedidos'){
+    views.orders.hidden=false;
+    renderMyOrders();
+  } else if(h.startsWith('product-')){
+    const id = h.slice('product-'.length);
+    openProductDetail(id);
+    views.product.hidden=false;
+  } else {
+    views.home.hidden=false;
+    renderHome();
+  }
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange', route);
+
+/* ============== HEADER / SEARCH ============== */
+const _sInput = $('#searchInput');
+const _sResults = $('#searchResults');
+const _sClear = $('#searchClear');
+function renderSearchDropdown(){
+  const q = state.search.trim().toLowerCase();
+  _sClear.hidden = !q;
+  if(!q){ _sResults.hidden=true; _sResults.innerHTML=''; return; }
+  const matches = state.products.filter(p=>p.available && (
+    p.name.toLowerCase().includes(q) ||
+    (p.desc||'').toLowerCase().includes(q) ||
+    (p.cat||'').toLowerCase().includes(q) ||
+    (p.tag||'').toLowerCase().includes(q)
+  )).slice(0,6);
+  if(matches.length===0){
+    _sResults.innerHTML = '<div class="p-5 text-sm text-stone-500 text-center">Nada encontrado para “'+escapeHtml(state.search)+'”</div>';
+    _sResults.hidden=false; return;
+  }
+  _sResults.innerHTML = '<div class="px-3 pt-3 pb-1 text-[11px] uppercase tracking-widest text-stone-400 font-bold">Sugestões</div>' + matches.map(p=>`
+    <a href="#product-${p.id}" class="sr-item flex items-center gap-3 p-3 hover:bg-red-50 border-t border-stone-100 transition">
+      <img src="${p.img}" alt="" class="w-12 h-12 rounded-lg object-cover flex-shrink-0 bg-stone-100"/>
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-semibold truncate">${escapeHtml(p.name)}</div>
+        <div class="text-xs text-stone-500 truncate">${escapeHtml(p.cat||'')}${p.desc?' · '+escapeHtml(p.desc):''}</div>
+      </div>
+      <div class="text-sm font-semibold gradient-brand-text flex-shrink-0 whitespace-nowrap">${brl(p.price)}</div>
+    </a>
+  `).join('');
+  _sResults.hidden=false;
+}
+_sInput.addEventListener('input', e=>{ state.search=e.target.value; renderMenu(); renderSearchDropdown(); });
+_sInput.addEventListener('focus', renderSearchDropdown);
+_sInput.addEventListener('keydown', e=>{
+  if(e.key==='Enter'){
+    const first = _sResults.querySelector('a.sr-item');
+    if(first){ e.preventDefault(); location.hash = first.getAttribute('href').slice(1); _sResults.hidden=true; _sInput.blur(); }
+  } else if(e.key==='Escape'){ _sResults.hidden=true; _sInput.blur(); }
+});
+_sClear.addEventListener('click', ()=>{ _sInput.value=''; state.search=''; renderMenu(); renderSearchDropdown(); _sInput.focus(); });
+document.addEventListener('click', e=>{ if(!e.target.closest('#searchWrap')) _sResults.hidden=true; });
+window.addEventListener('hashchange', ()=>{ _sResults.hidden=true; });
+
+/* ============== HOME ============== */
+function renderHome(){
+  renderCategories();
+  renderMenu();
+  renderReviewsPublic();
+}
+
+function renderCategories(){
+  const cats = ['Todos', ...new Set(state.products.filter(p=>p.available).map(m=>m.cat))];
+  const bar = $('#categoryBar');
+  bar.innerHTML = cats.map(c=>`<button data-cat="${escapeHtml(c)}" class="cat-btn flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold transition ring-brand ${c===state.activeCat?'gradient-brand text-white shadow-md':'bg-stone-100 text-stone-700 hover:bg-stone-200'}">${escapeHtml(c)}</button>`).join('');
+  bar.querySelectorAll('.cat-btn').forEach(b=>b.addEventListener('click',()=>{ state.activeCat=b.dataset.cat; renderCategories(); renderMenu(); }));
+}
+
+function renderMenu(){
+  const q = state.search.toLowerCase();
+  const filtered = state.products.filter(m=>{
+    if(!m.available) return false;
+    const catOk = state.activeCat==='Todos'||m.cat===state.activeCat;
+    const sOk = !q || m.name.toLowerCase().includes(q) || (m.desc||'').toLowerCase().includes(q);
+    return catOk && sOk;
+  });
+  const grid = $('#menuGrid');
+  $('#emptyMenu').hidden = filtered.length>0;
+  const h = v => escapeHtml(String(v ?? ''));
+  grid.innerHTML = filtered.map(m=>`
+    <a href="#product-${h(m.id)}" class="card flex flex-col fade-in no-underline text-inherit">
+      <div class="photo-wrap">
+        <img src="${h(m.img)}" alt="${h(m.name)}" class="photo" loading="lazy"/>
+        ${m.tag?`<span class="absolute top-3 left-3 chip chip-red !bg-white/95">${h(m.tag)}</span>`:''}
+        <span class="absolute top-3 right-3 chip chip-dark">${h(m.cat)}</span>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <h3 class="serif text-xl mb-1">${h(m.name)}</h3>
+        <p class="text-sm text-stone-500 mb-4 flex-1 leading-relaxed line-clamp-2">${h(m.desc)}</p>
+        <div class="flex items-center justify-between">
+          <div>
+            ${m.addons?'<div class="tag">A partir de</div>':''}
+            <div class="serif text-2xl font-bold">${brl(m.price)}</div>
+          </div>
+          <span class="btn-primary px-4 py-2.5 rounded-full text-sm font-semibold pointer-events-none">Ver →</span>
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+/* ============== PRODUCT DETAIL ============== */
+function openProductDetail(id){
+  const p = state.products.find(x=>x.id===id);
+  if(!p){ location.hash=''; return; }
+  state.pd = { product:p, qty:1, addons:new Set(), obs:'' };
+  $('#pdCat').textContent = p.cat;
+  $('#pdName').textContent = p.name;
+  $('#pdDesc').textContent = p.desc||'';
+  $('#pdImg').src = p.img;
+  $('#pdImg').alt = p.name;
+  $('#pdPrice').textContent = brl(p.price);
+  const tagEl = $('#pdTag');
+  if(p.tag){ tagEl.textContent = p.tag; tagEl.hidden = false; } else tagEl.hidden = true;
+  // A caixa mostrava a observação do lanche anterior, que não ia junto no pedido
+  $('#pdObs').value = '';
+  // Addons
+  $('#pdAddonsBox').hidden = !p.addons;
+  $('#pdAddons').innerHTML = ADDONS.map(a=>`
+    <label class="addon-row" data-ad="${a.id}">
+      <div class="flex items-center gap-3">
+        <span class="text-xl">${a.emoji}</span>
+        <span class="text-sm font-semibold">${a.name}</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-sm text-stone-500">+ ${brl(a.price)}</span>
+        <input type="checkbox" class="w-5 h-5 accent-red-600"/>
+      </div>
+    </label>
+  `).join('');
+  $$('#pdAddons .addon-row').forEach(row=>{
+    const id = row.dataset.ad;
+    const cb = row.querySelector('input');
+    // A linha é um <label>: o navegador já marca a caixa ao clicar em qualquer parte dela
+    cb.addEventListener('change', ()=>{
+      if(cb.checked) state.pd.addons.add(id); else state.pd.addons.delete(id);
+      row.classList.toggle('selected', cb.checked);
+      updatePdPrice();
+    });
+  });
+  updatePdQty();
+}
+
+function pdAddonsTotal(){
+  let t=0; state.pd.addons.forEach(id=>{ const a=ADDONS.find(x=>x.id===id); if(a) t+=a.price; }); return t;
+}
+function updatePdPrice(){
+  const unit = state.pd.product.price + pdAddonsTotal();
+  $('#pdAddPrice').textContent = `· ${brl(unit*state.pd.qty)}`;
+}
+function updatePdQty(){
+  $('#pdQty').textContent = state.pd.qty;
+  updatePdPrice();
+}
+$('#pdInc').addEventListener('click',()=>{ state.pd.qty=Math.min(20,state.pd.qty+1); updatePdQty(); });
+$('#pdDec').addEventListener('click',()=>{ state.pd.qty=Math.max(1,state.pd.qty-1); updatePdQty(); });
+$('#pdObs').addEventListener('input', e=>{ state.pd.obs = e.target.value; });
+$('#pdAdd').addEventListener('click',()=>{
+  const p = state.pd.product;
+  const addons = [...state.pd.addons].map(id=>ADDONS.find(a=>a.id===id)).filter(Boolean);
+  const unit = p.price + addons.reduce((s,a)=>s+a.price,0);
+  state.cart.push({
+    lineId: uid(),
+    pid: p.id, name: p.name, img: p.img,
+    unit, qty: state.pd.qty,
+    addons: addons.map(a=>({id:a.id,name:a.name,price:a.price})),
+    obs: state.pd.obs.trim().slice(0,200)
+  });
+  save(L_CART, state.cart);
+  pulseCart();
+  renderCart();
+  location.hash = '';
+});
+
+/* ============== CART ============== */
+function cartSubtotal(){ return state.cart.reduce((s,l)=>s+l.unit*l.qty,0); }
+function totals(){
+  const subtotal = cartSubtotal();
+  const hasItems = state.cart.length>0;
+  const delivery = hasItems ? DELIVERY_FEE : 0;
+  let discount = 0;
+  if(state.payment==='pix' && hasItems) discount += subtotal*PIX_DISCOUNT;
+  // Tudo em centavos inteiros: sem isso o pedido gravava totais como 39,155
+  const cents = n => Math.round(n*100)/100;
+  discount = cents(discount);
+  return {subtotal:cents(subtotal),delivery,discount, total:cents(Math.max(0,subtotal-discount+delivery)), hasItems};
+}
+function pulseCart(){
+  $('#cartBtn').animate([{transform:'scale(1)'},{transform:'scale(1.08)'},{transform:'scale(1)'}],{duration:280,easing:'ease'});
+}
+
+function renderCart(){
+  const {subtotal,delivery,discount,total,hasItems} = totals();
+  const totalQty = state.cart.reduce((s,l)=>s+l.qty,0);
+  const badge = $('#cartBadge');
+  if(totalQty>0){ badge.classList.remove('hidden'); badge.textContent=totalQty; } else badge.classList.add('hidden');
+  $('#cartEmpty').hidden = hasItems;
+  $('#cartItems').hidden = !hasItems;
+  $('#cartFooter').hidden = !hasItems;
+  $('#cartAddr').textContent = state.address ? addrShort(state.address) : 'endereço não definido';
+  $('#cartItems').innerHTML = state.cart.map(l=>`
+    <div class="flex gap-3 fade-in" data-line="${l.lineId}">
+      <img src="${escapeHtml(l.img)}" alt="" class="w-16 h-16 rounded-xl object-cover flex-shrink-0"/>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between gap-2">
+          <div class="font-semibold text-sm leading-tight">${escapeHtml(l.name)}</div>
+          <button data-rm="${l.lineId}" class="text-stone-400 hover:text-red-600 text-xs" aria-label="Remover">✕</button>
+        </div>
+        ${l.addons.length?`<div class="text-[11px] text-red-700 mt-0.5">+ ${l.addons.map(a=>escapeHtml(a.name)).join(', ')}</div>`:''}
+        ${l.obs?`<div class="text-[11px] text-stone-500 italic mt-0.5">"${escapeHtml(l.obs)}"</div>`:''}
+        <div class="flex items-center justify-between mt-2">
+          <div class="flex items-center gap-1 bg-stone-100 rounded-full p-0.5">
+            <button data-dec="${l.lineId}" class="w-7 h-7 rounded-full bg-white font-bold text-sm ring-brand">−</button>
+            <span class="w-6 text-center font-semibold text-sm">${l.qty}</span>
+            <button data-inc="${l.lineId}" class="w-7 h-7 rounded-full gradient-brand text-white font-bold text-sm ring-brand">+</button>
+          </div>
+          <div class="font-semibold text-sm">${brl(l.unit*l.qty)}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  $('#cartItems').querySelectorAll('[data-rm]').forEach(b=>b.addEventListener('click',()=>{
+    state.cart = state.cart.filter(x=>x.lineId!==b.dataset.rm); save(L_CART,state.cart); renderCart();
+  }));
+  $('#cartItems').querySelectorAll('[data-inc]').forEach(b=>b.addEventListener('click',()=>{
+    const l = state.cart.find(x=>x.lineId===b.dataset.inc); if(l){ l.qty=Math.min(20,l.qty+1); save(L_CART,state.cart); renderCart(); }
+  }));
+  $('#cartItems').querySelectorAll('[data-dec]').forEach(b=>b.addEventListener('click',()=>{
+    const l = state.cart.find(x=>x.lineId===b.dataset.dec); if(l){ l.qty--; if(l.qty<=0) state.cart=state.cart.filter(x=>x!==l); save(L_CART,state.cart); renderCart(); }
+  }));
+  $('#subtotalV').textContent = brl(subtotal);
+  $('#deliveryV').textContent = delivery===0?'Grátis':brl(delivery);
+  $('#discountV').textContent = '- '+brl(discount);
+  $('#totalV').textContent = brl(total);
+  renderAppCart();
+}
+
+function openCart(){ closeSuccess(); $('#cartOverlay').hidden=false; $('#cartDrawer').hidden=false; }
+function closeCart(){ $('#cartOverlay').hidden=true; $('#cartDrawer').hidden=true; }
+$('#cartBtn').addEventListener('click', openCart);
+$('#closeCart').addEventListener('click', closeCart);
+$('#cartOverlay').addEventListener('click', closeCart);
+
+/* ============== ADDRESS ============== */
+function addrShort(a){ return a.street+', '+a.number+' · '+a.city+'/'+a.state; }
+function addrLines(a){
+  const h = v => escapeHtml(String(v ?? ''));
+  return `<div class="font-semibold text-sm">${h(a.street)}, ${h(a.number)}${a.complement?' - '+h(a.complement):''}</div>
+          <div class="text-sm text-stone-600">${h(a.neighborhood)}</div>
+          <div class="text-xs text-stone-500 mt-1">${a.cep?'CEP '+h(a.cep)+' · ':''}${h(a.city)}/${h(a.state)}</div>`;
+}
+function renderAddrDisplay(){
+  const t = $('#addrText');
+  if(state.address) t.innerHTML = addrLines(state.address);
+  else t.innerHTML = `<div class="font-semibold text-sm">Nenhum endereço definido</div><div class="text-xs text-stone-500 mt-1">Clique em "Alterar" para informar.</div>`;
+}
+function fillAddrForm(a){
+  $('#aCep').value = a?.cep||'';
+  $('#aStreet').value = a?.street||'';
+  $('#aNumber').value = a?.number||'';
+  $('#aComplement').value = a?.complement||'';
+  $('#aNeighborhood').value = a?.neighborhood||'';
+  // A loja só entrega em Nova Friburgo: endereço novo já vem com a cidade
+  $('#aCity').value = a?.city||'Nova Friburgo';
+  $('#aState').value = a?.state||'RJ';
+}
+$('#aCep').addEventListener('input', e=>{
+  let v = e.target.value.replace(/\D/g,'').slice(0,8);
+  if(v.length>5) v = v.slice(0,5)+'-'+v.slice(5);
+  e.target.value = v;
+});
+/* Busca o CEP no ViaCEP (serviço público dos Correios). null = CEP não existe; undefined = sem internet ou serviço fora */
+async function lookupCep(raw){
+  const ctl = new AbortController(); const t = setTimeout(()=>ctl.abort(), 6000);
+  try{
+    const r = await fetch('https://viacep.com.br/ws/'+raw+'/json/', {signal:ctl.signal});
+    const d = await r.json();
+    return d.erro ? null : {street:d.logradouro||'', neighborhood:d.bairro||'', city:d.localidade||'', state:d.uf||''};
+  }catch(err){ console.warn('viacep', err); return undefined; }
+  finally{ clearTimeout(t); }
+}
+$('#searchCep').addEventListener('click', async ()=>{
+  const raw = ($('#aCep').value||'').replace(/\D/g,'');
+  const hint = $('#cepHint');
+  if(raw.length!==8){ hint.textContent='Digite um CEP com 8 dígitos.'; hint.className='text-xs text-red-600'; return; }
+  hint.textContent = 'Buscando CEP...'; hint.className = 'text-xs text-stone-500';
+  const found = await lookupCep(raw);
+  if(found){
+    if(found.street) $('#aStreet').value = found.street;
+    if(found.neighborhood) $('#aNeighborhood').value = found.neighborhood;
+    $('#aCity').value = found.city;
+    $('#aState').value = found.state;
+    hint.textContent = '✓ Endereço encontrado. Confira e informe número e complemento.';
+    hint.className = 'text-xs text-emerald-700 font-semibold';
+    (found.street ? $('#aNumber') : $('#aStreet')).focus();
+  } else {
+    hint.textContent = found===null ? 'CEP não encontrado. Preencha os campos manualmente.' : 'Não deu para buscar o CEP agora. Preencha os campos manualmente.';
+    hint.className = 'text-xs text-red-700';
+    $('#aStreet').focus();
+  }
+});
+$('#editAddr').addEventListener('click',()=>{
+  const showing = !$('#addrForm').hidden;
+  $('#addrForm').hidden = showing;
+  $('#addrDisplay').hidden = !showing;
+  if(!showing) fillAddrForm(state.address);
+});
+$('#cancelAddr').addEventListener('click',()=>{
+  $('#addrForm').hidden = true; $('#addrDisplay').hidden = false;
+});
+$('#saveAddr').addEventListener('click',()=>{
+  const a = {
+    cep: field('#aCep'),
+    street: field('#aStreet'),
+    number: field('#aNumber'),
+    complement: field('#aComplement'),
+    neighborhood: field('#aNeighborhood'),
+    city: field('#aCity'),
+    state: field('#aState').toUpperCase(),
+  };
+  if(!a.street || !a.number || !a.city || !a.state){ notify('Preencha ao menos rua, número, cidade e UF.','error'); return; }
+  state.address = a; save(L_ADDR, a);
+  renderAddrDisplay();
+  $('#addrForm').hidden = true; $('#addrDisplay').hidden = false;
+});
+
+/* ============== CHECKOUT ============== */
+$('#checkoutBtn').addEventListener('click', openCheckout);
+function openCheckout(){
+  if(!totals().hasItems) return;
+  closeSuccess(); closeCart(); renderCheckout(); renderAddrDisplay();
+  const profile = load(L_PROFILE,{}); $('#guestName').value = profile.name||''; $('#guestPhone').value = profile.phone||'';
+  $('#checkoutOverlay').hidden=false; $('#checkoutModal').hidden=false;
+}
+function closeCheckout(){ $('#checkoutOverlay').hidden=true; $('#checkoutModal').hidden=true; $('#addrForm').hidden=true; $('#addrDisplay').hidden=false; }
+$('#closeCheckout').addEventListener('click', closeCheckout);
+$('#checkoutOverlay').addEventListener('click', closeCheckout);
+$('#editCart').addEventListener('click',()=>{
+  closeCheckout();
+  if(!$('#viewApp').hidden) setAppTab('cart'); else openCart();
+});
+
+$$('.pay-opt').forEach(b=>b.addEventListener('click',()=>{
+  state.payment = b.dataset.pay;
+  $$('.pay-opt').forEach(x=>{
+    const a = x===b;
+    x.classList.toggle('border-red-600',a); x.classList.toggle('bg-red-50/70',a); x.classList.toggle('border-stone-200',!a);
+  });
+  renderCart(); renderCheckout();
+}));
+
+function renderCheckout(){
+  const {subtotal,delivery,discount,total} = totals();
+  $('#summaryItems').innerHTML = state.cart.map(l=>`
+    <li class="flex justify-between gap-3">
+      <span class="text-stone-700"><span class="font-semibold">${l.qty}×</span> ${escapeHtml(l.name)}${l.addons.length?' <span class="text-red-700 text-xs">(+'+l.addons.length+' adicionais)</span>':''}</span>
+      <span class="font-semibold flex-shrink-0">${brl(l.unit*l.qty)}</span>
+    </li>`).join('');
+  $('#cSubtotal').textContent = brl(subtotal);
+  $('#cDelivery').textContent = delivery===0?'Grátis':brl(delivery);
+  $('#cDiscount').textContent = '- '+brl(discount);
+  $('#cTotal').textContent = brl(total);
+}
+
+$('#placeOrder').addEventListener('click', async ()=>{
+  if(!totals().hasItems) return;
+  const name = field('#guestName');
+  const phone = field('#guestPhone');
+  if(!name||!phone){ notify('Informe seu nome e telefone.','error'); (name?$('#guestPhone'):$('#guestName')).focus(); return; }
+  if(!state.address){
+    notify('Informe o endereço de entrega.','error');
+    if($('#addrForm').hidden) $('#editAddr').click();
+    $('#aCep').focus();
+    return;
+  }
+  save(L_PROFILE, {name,phone});
+  const {subtotal,delivery,discount,total} = totals();
+  const order = {
+    id: secureId(),
+    code: orderCode(),
+    createdAt: Date.now(),
+    status: 'new',
+    customer: {name,phone},
+    address: state.address,
+    payment: state.payment,
+    items: state.cart.map(l=>({pid:l.pid,name:l.name,qty:l.qty,unit:l.unit,addons:l.addons.map(a=>a.name),obs:l.obs})),
+    subtotal, delivery, discount, total,
+  };
+  const btn = $('#placeOrder');
+  btn.disabled = true;
+  const saved = await saveDoc('orders/'+order.id, order, 'o pedido');
+  btn.disabled = false;
+  if(!saved) return;
+  $('#orderId').textContent = order.code;
+  state.cart = []; save(L_CART,state.cart);
+  rememberMyOrder(order);
+  renderCart(); closeCheckout();
+  $('#successOverlay').hidden=false; $('#successModal').hidden=false;
+});
+function closeSuccess(){ $('#successOverlay').hidden=true; $('#successModal').hidden=true; }
+$('#closeSuccess').addEventListener('click', closeSuccess);
+$('#trackOrder').addEventListener('click',()=>{
+  closeSuccess();
+  if(!$('#viewApp').hidden) setAppTab('orders'); else location.hash = 'pedidos';
+});
+
+/* ============== MEUS PEDIDOS (painel do cliente) ==============
+   O aparelho guarda só id/código dos pedidos que fez; o status vem ao vivo do banco
+   (as regras deixam ler um pedido pelo id, que é impossível de adivinhar) */
+const MY_STEPS = [
+  {st:'new', label:'Recebido', icon:'📝'},
+  {st:'preparing', label:'Preparando', icon:'🔥'},
+  {st:'ready', label:'Saiu para entrega', icon:'🛵'},
+  {st:'delivered', label:'Entregue', icon:'✅'},
+];
+const MY_STATUS_TEXT = {new:'Recebido', preparing:'Preparando', ready:'Saiu para entrega', delivered:'Entregue', cancelled:'Cancelado'};
+const _mySubs = {};
+function myOrderRefs(){ return load(L_ORDERS, []); }
+function rememberMyOrder(o){
+  const refs = [{id:o.id, code:o.code, createdAt:o.createdAt}, ...myOrderRefs().filter(r=>r.id!==o.id)].slice(0,10);
+  save(L_ORDERS, refs);
+  state.myOrders[o.id] = o;
+  watchMyOrders();
+  renderMyOrders();
+}
+function watchMyOrders(){
+  if(!db) return;
+  const refs = myOrderRefs();
+  refs.forEach(r=>{
+    if(_mySubs[r.id]) return;
+    _mySubs[r.id] = db.doc('orders/'+r.id).onSnapshot(snap=>{
+      const prev = state.myOrders[r.id];
+      if(!snap.exists){ state.myOrders[r.id] = {id:r.id, code:r.code, createdAt:r.createdAt, gone:true}; }
+      else {
+        const o = snap.data();
+        if(prev && !prev.gone && prev.status && prev.status!==o.status)
+          notify('Pedido '+(o.code||'')+': '+(MY_STATUS_TEXT[o.status]||o.status));
+        state.myOrders[r.id] = o;
+      }
+      renderMyOrders();
+    }, err=>console.warn('meu pedido '+r.id, err));
+  });
+}
+function myOrderCard(o, ref){
+  const h = v => escapeHtml(String(v ?? ''));
+  const code = o?.code || ref.code;
+  const when = new Date(o?.createdAt || ref.createdAt).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+  const wa = 'https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent('Olá! Sobre o meu pedido '+code+' no site.');
+  let body;
+  if(!o) body = '<div class="skeleton h-10 rounded-xl"></div>';
+  else if(o.gone) body = '<p class="text-sm text-stone-500">Este pedido não está mais no sistema da loja.</p>';
+  else if(o.status==='cancelled') body = '<div class="rounded-xl bg-red-50 text-red-800 text-sm font-semibold p-3">Pedido cancelado pela loja. Dúvidas? Chame no WhatsApp.</div>';
+  else {
+    const idx = MY_STEPS.findIndex(s=>s.st===o.status);
+    body = `<div class="track my-1" aria-label="Status: ${h(MY_STATUS_TEXT[o.status]||o.status)}">${MY_STEPS.map((s,i)=>`
+      <div class="track-step ${i<idx?'done':i===idx?(o.status==='delivered'?'done':'now'):''}"><span class="track-dot">${s.icon}</span><span>${s.label}</span></div>`).join('')}</div>`;
+  }
+  const items = o && !o.gone ? `<ul class="text-sm text-stone-600 mt-3 space-y-0.5">${(o.items||[]).map(i=>`<li><b>${h(i.qty)}×</b> ${h(i.name)}${i.addons&&i.addons.length?` <span class="text-red-700 text-xs">(+ ${i.addons.map(h).join(', ')})</span>`:''}</li>`).join('')}</ul>` : '';
+  const status = o && !o.gone ? (MY_STATUS_TEXT[o.status]||o.status) : '';
+  const cls = {new:'chip-red',preparing:'chip-blue',ready:'',delivered:'chip-green',cancelled:'chip-gray'}[o?.status] ?? 'chip-gray';
+  return `
+    <article class="card-flat p-4 sm:p-5" data-myorder="${h(ref.id)}">
+      <div class="flex items-start justify-between gap-3 mb-3">
+        <div>
+          <div class="serif text-2xl leading-none">${h(code)}</div>
+          <div class="text-xs text-stone-500 mt-1">${h(when)}</div>
+        </div>
+        <div class="text-right">
+          ${status?`<span class="chip ${cls} status-badge">${h(status)}</span>`:''}
+          ${o&&!o.gone?`<div class="serif text-xl gradient-brand-text mt-1">${brl(o.total)}</div>`:''}
+        </div>
+      </div>
+      ${body}
+      ${items}
+      <a href="${wa}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm font-semibold text-red-700 hover:text-red-800">💬 Falar com a loja sobre este pedido</a>
+    </article>`;
+}
+function renderMyOrders(){
+  const refs = myOrderRefs();
+  const html = refs.length
+    ? refs.map(r=>myOrderCard(state.myOrders[r.id], r)).join('')
+    : `<div class="text-center py-12">
+        <div class="text-5xl mb-3">🍔</div>
+        <div class="font-bold mb-1">Nenhum pedido neste aparelho ainda</div>
+        <p class="text-sm text-stone-500 mb-5">Quando você pedir, ele aparece aqui com o status ao vivo.</p>
+        <a href="#" data-go="home" class="btn-primary inline-block px-6 py-3 rounded-2xl font-bold ring-brand">Ver cardápio</a>
+      </div>`;
+  $('#myOrdersList').innerHTML = html;
+  $('#appMyOrders').innerHTML = html;
+  const active = refs.filter(r=>{ const o = state.myOrders[r.id]; return o && !o.gone && !['delivered','cancelled'].includes(o.status); }).length;
+  const b = $('#myOrdersBadge'); b.textContent = active; b.classList.toggle('hidden', active===0);
+  $('#appOrdersBadge').textContent = active; $('#appOrdersBadge').hidden = active===0;
+}
+
+/* ============== REVIEWS ============== */
+function renderStars(n){
+  let s=''; for(let i=1;i<=5;i++) s += `<span class="${i<=n?'star':'star-empty'}">★</span>`; return s;
+}
+$$('.star-btn').forEach(b=>b.addEventListener('click',()=>{ state.revRating = +b.dataset.s; paintStarBtns(); }));
+function paintStarBtns(){
+  $$('.star-btn').forEach(b=>{ const on = +b.dataset.s <= state.revRating; b.classList.toggle('star',on); b.classList.toggle('star-empty',!on); });
+}
+paintStarBtns();
+
+$('#reviewForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const name = field('#revName');
+  const text = field('#revText');
+  if(!name||!text){ notify('Preencha seu nome e o comentário.','error'); return; }
+  const r = {id:uid(), name, rating:state.revRating, text, createdAt:Date.now()};
+  if(!await saveDoc('reviews/'+r.id, r, 'a avaliação')) return;
+  $('#revName').value=''; $('#revText').value=''; state.revRating=5; paintStarBtns();
+  notify('Obrigado pela avaliação!');
+});
+
+function renderReviewsPublic(){
+  const list = $('#reviewList');
+  const rs = state.reviews.slice().sort((a,b)=>b.createdAt-a.createdAt).slice(0,20);
+  if(rs.length===0){ list.innerHTML = '<p class="text-stone-400 text-sm">Seja o primeiro a avaliar.</p>'; $('#avgRating').textContent='—'; $('#reviewCount').textContent='0'; return; }
+  const avg = rs.reduce((s,r)=>s+r.rating,0)/rs.length;
+  $('#avgRating').textContent = avg.toFixed(1);
+  $('#reviewCount').textContent = state.reviews.length;
+  list.innerHTML = rs.map(r=>`
+    <div class="card-flat p-4">
+      <div class="flex items-center justify-between mb-1">
+        <div class="font-semibold text-sm">${escapeHtml(r.name)}</div>
+        <div class="text-xs text-stone-400">${new Date(r.createdAt).toLocaleDateString('pt-BR')}</div>
+      </div>
+      <div class="text-sm mb-1">${renderStars(r.rating)}</div>
+      <p class="text-sm text-stone-600 leading-relaxed">${escapeHtml(r.text)}</p>
+    </div>
+  `).join('');
+}
+
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
+
+/* ============== MESSAGES ============== */
+$('#msgForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const m = {
+    id: uid(),
+    name: field('#msgName'),
+    contact: field('#msgContact'),
+    body: field('#msgBody'),
+    createdAt: Date.now(),
+    read: false,
+  };
+  if(!m.name||!m.contact||!m.body){ notify('Preencha nome, contato e mensagem.','error'); return; }
+  if(!await saveDoc('messages/'+m.id, m, 'a mensagem')) return;
+  $('#msgName').value=''; $('#msgContact').value=''; $('#msgBody').value='';
+  notify('Mensagem enviada! A equipe vai responder em breve.');
+});
+
+/* ============== ADMIN ============== */
+function renderAdmin(){
+  const acc = state.account;
+  $('#adminSignOut').hidden = !acc;
+  if(!state.isOwner){
+    $('#adminGate').hidden = false;
+    $('#adminPanel').hidden = true;
+    $('#adminGateMsg').textContent = acc
+      ? 'A conta '+acc.email+' não é a do dono. Saia e entre com a conta Google do dono.'
+      : 'Esta área é só para o dono do estabelecimento. Entre com a conta Google do dono.';
+    $('#adminSignIn').hidden = !!acc;
+    $('#adminGateSignOut').hidden = !acc;
+    return;
+  }
+  $('#adminGate').hidden = true;
+  $('#adminPanel').hidden = false;
+  renderStats();
+  renderAdminTab();
+}
+
+$$('.admin-tab').forEach(b=>b.addEventListener('click',()=>{
+  state.adminTab = b.dataset.at;
+  $$('.admin-tab').forEach(x=>x.classList.toggle('active', x===b));
+  renderAdminTab();
+}));
+
+function renderAdminTab(){
+  $('#atOrders').hidden = state.adminTab!=='orders';
+  $('#atProducts').hidden = state.adminTab!=='products';
+  $('#atReviews').hidden = state.adminTab!=='reviews';
+  $('#atMessages').hidden = state.adminTab!=='messages';
+  if(state.adminTab==='orders') renderAdminOrders();
+  if(state.adminTab==='products') renderAdminProducts();
+  if(state.adminTab==='reviews') renderAdminReviews();
+  if(state.adminTab==='messages') renderAdminMessages();
+}
+
+function renderStats(){
+  const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+  const today = state.orders.filter(o=>o.createdAt>=todayStart.getTime());
+  $('#statNewOrders').textContent = state.orders.filter(o=>o.status==='new').length;
+  $('#statRevenue').textContent = brl(today.reduce((s,o)=>s+(o.total||0),0));
+  $('#statReviews').textContent = state.reviews.length;
+  $('#statMsgs').textContent = state.messages.filter(m=>!m.read).length;
+  // Aba do navegador mostra quantos pedidos novos esperam o dono
+  const waiting = state.isOwner ? state.orders.filter(o=>o.status==='new').length : 0;
+  document.title = waiting ? '('+waiting+') Pedido novo · La Brasa' : SITE_TITLE();
+}
+
+/* Pedido novo chegando com o painel aberto: aviso na tela + som (o navegador só deixa tocar depois de um clique na página) */
+let _audio = null;
+document.addEventListener('click', ()=>{ try{ _audio = _audio || new (window.AudioContext||window.webkitAudioContext)(); _audio.resume(); }catch(e){} }, {capture:true});
+function ding(){
+  try{
+    if(!_audio) return;
+    [0, .18].forEach((t,i)=>{
+      const o = _audio.createOscillator(), g = _audio.createGain();
+      o.frequency.value = i ? 1320 : 880; o.type = 'sine';
+      g.gain.setValueAtTime(.0001, _audio.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(.35, _audio.currentTime+t+.02);
+      g.gain.exponentialRampToValueAtTime(.0001, _audio.currentTime+t+.28);
+      o.connect(g).connect(_audio.destination); o.start(_audio.currentTime+t); o.stop(_audio.currentTime+t+.3);
+    });
+  }catch(e){ console.warn('som', e); }
+}
+let _knownOrders = null;
+function announceNewOrders(list){
+  const ids = new Set(list.map(o=>o.id));
+  if(_knownOrders){
+    const fresh = list.filter(o=>!_knownOrders.has(o.id) && o.status==='new');
+    if(fresh.length){ ding(); notify('🔔 Pedido novo: '+fresh.map(o=>o.code).join(', ')); }
+  }
+  _knownOrders = ids;
+}
+
+/* Gravação do painel; se falhar avisa o dono em vez de ficar parado sem dizer nada */
+async function ownerWrite(fn, what){
+  if(!db){ notify('Sem conexão com o banco. Recarregue a página.','error'); return false; }
+  try{ await fn(); return true; }
+  catch(err){
+    console.warn(what, err);
+    notify(err?.code==='permission-denied' ? 'Sem permissão para '+what+'. Entre de novo com a conta do dono.' : 'Não deu para '+what+'. Verifique a internet e tente de novo.', 'error');
+    return false;
+  }
+}
+
+$$('.orderFilter').forEach(b=>b.addEventListener('click',()=>{
+  state.orderFilter = b.dataset.of;
+  $$('.orderFilter').forEach(x=>{ x.classList.toggle('bg-white', x===b); x.classList.toggle('shadow-sm', x===b); });
+  renderAdminOrders();
+}));
+
+const STATUS_META = {
+  new: {label:'Novo', cls:'chip-red'},
+  preparing: {label:'Preparando', cls:'chip-blue'},
+  ready: {label:'Saiu p/ entrega', cls:'chip'},
+  delivered: {label:'Entregue', cls:'chip-green'},
+  cancelled: {label:'Cancelado', cls:'chip-gray'},
+};
+const NEXT_STATUS = {new:'preparing', preparing:'ready', ready:'delivered'};
+const PAY_LABEL = {pix:'Pix', card:'Cartão', cash:'Dinheiro'};
+
+function renderAdminOrders(){
+  const list = $('#ordersList');
+  const filt = state.orderFilter;
+  const items = state.orders.slice().sort((a,b)=>b.createdAt-a.createdAt).filter(o=>filt==='all'||o.status===filt);
+  $('#ordersEmpty').hidden = items.length>0;
+  // Tudo num pedido foi digitado pelo cliente: escapar antes de pôr no HTML do painel
+  const h = v => escapeHtml(String(v ?? ''));
+  list.innerHTML = items.map(o=>{
+    const meta = STATUS_META[o.status]||STATUS_META.new;
+    const c = o.customer||{}, a = o.address||{};
+    return `
+    <article class="card-flat p-4 md:p-5">
+      <div class="flex items-start justify-between gap-3 md:gap-4 mb-3">
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <span class="serif text-xl">${h(o.code)}</span>
+            <span class="chip ${meta.cls} status-badge">${meta.label}</span>
+          </div>
+          <div class="text-xs text-stone-500">${new Date(o.createdAt).toLocaleString('pt-BR')} · ${h(c.name)} · ${h(c.phone)}</div>
+          <div class="text-xs text-stone-500 mt-0.5">${h(a.street)}, ${h(a.number)}${a.complement?' - '+h(a.complement):''} · ${h(a.neighborhood)} · ${h(a.city)}/${h(a.state)}</div>
+        </div>
+        <div class="text-right flex-shrink-0">
+          <div class="serif text-xl font-bold gradient-brand-text whitespace-nowrap">${brl(o.total)}</div>
+          <div class="text-xs text-stone-500 uppercase font-semibold">${h(PAY_LABEL[o.payment]||o.payment)}</div>
+        </div>
+      </div>
+      <ul class="text-sm space-y-1 mb-4 bg-stone-50 rounded-xl p-3">
+        ${(o.items||[]).map(i=>`<li>• <b>${h(i.qty)}×</b> ${h(i.name)}${i.addons&&i.addons.length?` <span class="text-red-700 text-xs">(+ ${i.addons.map(h).join(', ')})</span>`:''}${i.obs?` <i class="text-stone-500">"${h(i.obs)}"</i>`:''}</li>`).join('')}
+      </ul>
+      <div class="flex flex-wrap gap-2">
+        ${NEXT_STATUS[o.status]?`<button data-adv="${h(o.id)}" class="btn-primary px-4 py-2 rounded-full text-sm font-semibold">→ ${STATUS_META[NEXT_STATUS[o.status]].label}</button>`:''}
+        ${o.status!=='delivered'&&o.status!=='cancelled'?`<button data-cancel="${h(o.id)}" class="btn-danger px-4 py-2 rounded-full text-sm font-semibold">Cancelar</button>`:''}
+      </div>
+    </article>`;
+  }).join('');
+  list.querySelectorAll('[data-adv]').forEach(b=>b.addEventListener('click', async ()=>{
+    const o = state.orders.find(x=>x.id===b.dataset.adv); if(!o) return;
+    const next = NEXT_STATUS[o.status]; if(!next) return;
+    b.disabled = true;
+    if(!await ownerWrite(()=>db.doc('orders/'+o.id).update({status:next}), 'mudar o status do pedido')) b.disabled = false;
+  }));
+  list.querySelectorAll('[data-cancel]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!await confirmDialog('Cancelar este pedido?','Cancelar pedido')) return;
+    await ownerWrite(()=>db.doc('orders/'+b.dataset.cancel).update({status:'cancelled'}), 'cancelar o pedido');
+  }));
+}
+
+/* ---- Products admin ---- */
+function renderAdminProducts(){
+  const grid = $('#productsList');
+  grid.innerHTML = state.products.map(p=>`
+    <article class="card-flat p-4 flex flex-col">
+      <img src="${escapeHtml(p.img||'')}" alt="" class="w-full h-32 rounded-xl object-cover bg-stone-100 mb-3" loading="lazy"/>
+      <div class="flex items-start justify-between gap-2 mb-1">
+        <h4 class="font-semibold text-sm leading-tight">${escapeHtml(p.name)}</h4>
+        <span class="chip ${p.available?'chip-green':'chip-gray'} status-badge">${p.available?'ATIVO':'OCULTO'}</span>
+      </div>
+      <div class="text-xs text-stone-500 mb-2">${escapeHtml(p.cat||'')} · ${brl(p.price)}</div>
+      <p class="text-xs text-stone-500 line-clamp-2 flex-1 mb-3">${escapeHtml(p.desc||'')}</p>
+      <button data-edit="${p.id}" class="btn-ghost w-full py-2 rounded-xl text-sm font-semibold">Editar</button>
+    </article>
+  `).join('');
+  grid.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>openProductEdit(b.dataset.edit)));
+}
+
+$('#newProductBtn').addEventListener('click',()=>openProductEdit(null));
+
+function openProductEdit(id){
+  const p = id ? state.products.find(x=>x.id===id) : null;
+  $('#prodModalTitle').textContent = p?'Editar produto':'Novo produto';
+  $('#pfId').value = p?.id||'';
+  $('#pfName').value = p?.name||'';
+  $('#pfPrice').value = p?.price||'';
+  $('#pfCat').value = p?.cat||'';
+  $('#pfTag').value = p?.tag||'';
+  $('#pfDesc').value = p?.desc||'';
+  $('#pfAvail').checked = p ? !!p.available : true;
+  $('#pfAddons').checked = !!p?.addons;
+  $('#pfCatList').innerHTML = [...new Set(state.products.map(x=>x.cat))].map(c=>`<option value="${escapeHtml(c)}">`).join('');
+  state.pfImgUrl = p?.img||null;
+  const prev = $('#pfImgPreview');
+  if(state.pfImgUrl) prev.innerHTML = `<img src="${state.pfImgUrl}" class="w-full h-full object-cover rounded-xl"/>`;
+  else prev.textContent = 'sem imagem';
+  $('#deleteProd').hidden = !p;
+  $('#pfImgStatus').textContent = '';
+  $('#prodOverlay').hidden=false; $('#prodModal').hidden=false;
+}
+function closeProdEdit(){ $('#prodOverlay').hidden=true; $('#prodModal').hidden=true; }
+$('#closeProd').addEventListener('click', closeProdEdit);
+$('#prodOverlay').addEventListener('click', closeProdEdit);
+
+/* A foto vai dentro do próprio produto no banco (o armazenamento de arquivos do Firebase é pago):
+   reduz para no máximo 640px em JPEG, cerca de 60 KB */
+function resizeImage(file, max){
+  return new Promise((resolve, reject)=>{
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = ()=>{
+      const s = Math.min(1, max/Math.max(img.width, img.height));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.width*s); c.height = Math.round(img.height*s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL('image/jpeg', 0.8));
+    };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); reject(new Error('imagem inválida')); };
+    img.src = url;
+  });
+}
+$('#pfImgFile').addEventListener('change', async e=>{
+  const file = e.target.files[0]; if(!file) return;
+  $('#pfImgStatus').textContent = 'Preparando foto...';
+  try{
+    state.pfImgUrl = await resizeImage(file, 640);
+    $('#pfImgPreview').innerHTML = `<img src="${state.pfImgUrl}" class="w-full h-full object-cover rounded-xl"/>`;
+    $('#pfImgStatus').textContent = '✓ Foto pronta. Clique em Salvar.';
+  }catch(err){ console.warn(err); $('#pfImgStatus').textContent = 'Não deu para abrir essa imagem. Tente uma foto JPG ou PNG.'; }
+});
+
+$('#prodForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const id = $('#pfId').value || uid();
+  const old = state.products.find(x=>x.id===id);
+  const p = {
+    id, name: $('#pfName').value.trim(), price: +$('#pfPrice').value,
+    cat: $('#pfCat').value.trim(), tag: $('#pfTag').value.trim(),
+    desc: $('#pfDesc').value.trim(), available: $('#pfAvail').checked,
+    addons: $('#pfAddons').checked,
+    img: state.pfImgUrl || 'img/logo.jpg',
+    pos: old?.pos ?? 999,
+  };
+  if(!await ownerWrite(()=>db.doc('products/'+id).set(p), 'salvar o produto')) return;
+  closeProdEdit();
+  notify('Produto salvo');
+});
+
+$('#deleteProd').addEventListener('click', async ()=>{
+  const id = $('#pfId').value; if(!id) return;
+  if(!await confirmDialog('Excluir este produto do cardápio?','Excluir')) return;
+  if(!await ownerWrite(()=>db.doc('products/'+id).delete(), 'excluir o produto')) return;
+  closeProdEdit();
+});
+
+/* ---- Reviews admin ---- */
+function renderAdminReviews(){
+  const list = $('#adminReviewList');
+  const rs = state.reviews.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  $('#revEmpty').hidden = rs.length>0;
+  list.innerHTML = rs.map(r=>`
+    <article class="card-flat p-4">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+        <div class="font-semibold">${escapeHtml(r.name)} <span class="text-sm">${renderStars(r.rating)}</span></div>
+        <div class="flex gap-2 items-center">
+          <span class="text-xs text-stone-400">${new Date(r.createdAt).toLocaleString('pt-BR')}</span>
+          <button data-delrev="${r.id}" class="btn-danger px-3 py-1 rounded-full text-xs font-semibold">Excluir</button>
+        </div>
+      </div>
+      <p class="text-sm text-stone-600 leading-relaxed">${escapeHtml(r.text)}</p>
+    </article>
+  `).join('');
+  list.querySelectorAll('[data-delrev]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!await confirmDialog('Excluir esta avaliação?','Excluir')) return;
+    await ownerWrite(()=>db.doc('reviews/'+b.dataset.delrev).delete(), 'excluir a avaliação');
+  }));
+}
+
+/* ---- Messages admin ---- */
+function renderAdminMessages(){
+  const list = $('#adminMsgList');
+  const ms = state.messages.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  $('#msgEmpty').hidden = ms.length>0;
+  list.innerHTML = ms.map(m=>`
+    <article class="card-flat p-4 ${m.read?'':'ring-2 ring-red-200'}">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+        <div class="font-semibold">${escapeHtml(m.name)} ${m.read?'':'<span class="chip chip-red status-badge">NOVA</span>'}</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs text-stone-400">${new Date(m.createdAt).toLocaleString('pt-BR')}</span>
+          ${!m.read?`<button data-read="${m.id}" class="btn-ghost px-3 py-1 rounded-full text-xs font-semibold">Marcar lida</button>`:''}
+          <button data-delmsg="${m.id}" class="btn-danger px-3 py-1 rounded-full text-xs font-semibold">Excluir</button>
+        </div>
+      </div>
+      <div class="text-xs text-red-700 font-semibold mb-2">${escapeHtml(m.contact)}</div>
+      <p class="text-sm text-stone-700 leading-relaxed">${escapeHtml(m.body)}</p>
+    </article>
+  `).join('');
+  list.querySelectorAll('[data-read]').forEach(b=>b.addEventListener('click', async ()=>{
+    await ownerWrite(()=>db.doc('messages/'+b.dataset.read).update({read:true}), 'marcar a mensagem como lida');
+  }));
+  list.querySelectorAll('[data-delmsg]').forEach(b=>b.addEventListener('click', async ()=>{
+    if(!await confirmDialog('Excluir esta mensagem?','Excluir')) return;
+    await ownerWrite(()=>db.doc('messages/'+b.dataset.delmsg).delete(), 'excluir a mensagem');
+  }));
+}
+
+/* ============== APP (versão celular, rota #app) ============== */
+const appState = { tab:'home', cat:'Todos', search:'', pd:null, revRating:5 };
+const APP_PANELS = {home:'#appHome', search:'#appSearch', cart:'#appCart', orders:'#appOrders', reviews:'#appReviews'};
+const APP_SUGGEST = ['bacon','cheddar','catupiry','costela','frango','batata','combo'];
+
+function renderApp(){ renderAppHome(); renderAppSearch(); renderAppCart(); renderAppReviews(); renderMyOrders(); }
+
+function setAppTab(t){
+  appState.tab = t;
+  Object.entries(APP_PANELS).forEach(([k,sel])=>{ $(sel).hidden = k!==t; });
+  $$('.app-tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===t));
+  window.scrollTo(0,0);
+}
+
+function appRow(p){
+  return `
+    <button type="button" data-open="${escapeHtml(p.id)}" class="app-row ring-brand fade-in">
+      <img src="${escapeHtml(p.img)}" alt="" class="w-24 h-24 rounded-2xl object-cover flex-shrink-0 bg-stone-100" loading="lazy"/>
+      <span class="flex-1 min-w-0 flex flex-col">
+        ${p.tag?`<span class="tag !text-[10px]">${escapeHtml(p.tag)}</span>`:''}
+        <span class="serif text-lg leading-tight text-brand-deep">${escapeHtml(p.name)}</span>
+        <span class="text-xs text-stone-500 line-clamp-2 mt-0.5 flex-1">${escapeHtml(p.desc||'')}</span>
+        <span class="flex items-center justify-between mt-1">
+          <span class="font-extrabold">${brl(p.price)}</span>
+          <span class="w-8 h-8 rounded-full gradient-brand text-white font-extrabold flex items-center justify-center" aria-hidden="true">+</span>
+        </span>
+      </span>
+    </button>`;
+}
+
+function renderAppHome(){
+  const cats = ['Todos', ...new Set(state.products.filter(p=>p.available).map(p=>p.cat))];
+  if(!cats.includes(appState.cat)) appState.cat = 'Todos';
+  $('#appCats').innerHTML = cats.map(c=>`<button type="button" data-acat="${escapeHtml(c)}" class="flex-shrink-0 px-4 py-2 rounded-full text-sm font-bold ring-brand ${c===appState.cat?'gradient-brand text-white shadow-md':'bg-white border border-stone-200 text-stone-700'}">${escapeHtml(c)}</button>`).join('');
+  const items = state.products.filter(p=>p.available && (appState.cat==='Todos'||p.cat===appState.cat));
+  $('#appMenu').innerHTML = items.map(appRow).join('');
+  $('#appMenuEmpty').hidden = items.length>0;
+}
+
+function renderAppSearch(){
+  const q = appState.search.trim().toLowerCase();
+  $('#appSuggest').hidden = !!q;
+  $('#appSuggest').innerHTML = APP_SUGGEST.map(s=>`<button type="button" data-sug="${s}" class="chip ring-brand">${s}</button>`).join('');
+  const res = $('#appSearchResults');
+  if(!q){ res.innerHTML = '<p class="text-sm text-stone-500">Toque numa sugestão ou digite o que você quer comer.</p>'; return; }
+  const matches = state.products.filter(p=>p.available && [p.name,p.desc,p.cat,p.tag].some(f=>(f||'').toLowerCase().includes(q)));
+  res.innerHTML = matches.length
+    ? matches.map(appRow).join('')
+    : `<p class="text-sm text-stone-500 text-center py-10">Nada encontrado para “${escapeHtml(appState.search)}”.</p>`;
+}
+$('#appSearchInput').addEventListener('input', e=>{ appState.search = e.target.value; renderAppSearch(); });
+
+function renderAppCart(){
+  const {subtotal,delivery,discount,total,hasItems} = totals();
+  const qty = state.cart.reduce((s,l)=>s+l.qty,0);
+  $('#appCartBadge').hidden = qty===0;
+  $('#appCartBadge').textContent = qty;
+  $('#appCartAddr').textContent = state.address ? addrShort(state.address) : 'endereço não definido';
+  $('#appCartEmpty').hidden = hasItems;
+  $('#appCartFooter').hidden = !hasItems;
+  $('#appCartItems').innerHTML = state.cart.map(l=>`
+    <div class="card-flat p-3 flex gap-3">
+      <img src="${l.img}" alt="" class="w-16 h-16 rounded-xl object-cover flex-shrink-0"/>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-start justify-between gap-2">
+          <div class="font-bold text-sm leading-tight">${escapeHtml(l.name)}</div>
+          <button type="button" data-arm="${l.lineId}" class="w-8 h-8 -mt-1 -mr-1 rounded-full text-stone-400 hover:text-red-600 ring-brand" aria-label="Remover ${escapeHtml(l.name)}">✕</button>
+        </div>
+        ${l.addons.length?`<div class="text-[11px] text-red-700 mt-0.5">+ ${l.addons.map(a=>escapeHtml(a.name)).join(', ')}</div>`:''}
+        ${l.obs?`<div class="text-[11px] text-stone-500 italic mt-0.5">"${escapeHtml(l.obs)}"</div>`:''}
+        <div class="flex items-center justify-between mt-2">
+          <div class="flex items-center gap-1 bg-stone-100 rounded-full p-0.5">
+            <button type="button" data-adec="${l.lineId}" class="w-9 h-9 rounded-full bg-white font-bold ring-brand" aria-label="Diminuir">−</button>
+            <span class="w-6 text-center font-bold text-sm">${l.qty}</span>
+            <button type="button" data-ainc="${l.lineId}" class="w-9 h-9 rounded-full gradient-brand text-white font-bold ring-brand" aria-label="Aumentar">+</button>
+          </div>
+          <div class="font-bold text-sm">${brl(l.unit*l.qty)}</div>
+        </div>
+      </div>
+    </div>`).join('');
+  $('#appSubtotal').textContent = brl(subtotal);
+  $('#appDelivery').textContent = delivery===0?'Grátis':brl(delivery);
+  $('#appDiscount').textContent = '- '+brl(discount);
+  $('#appTotal').textContent = brl(total);
+}
+$('#appCheckout').addEventListener('click', openCheckout);
+
+function renderAppReviews(){
+  const rs = state.reviews.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  const n = rs.length;
+  const avg = n ? rs.reduce((s,r)=>s+r.rating,0)/n : 0;
+  $('#appAvgBig').textContent = n ? avg.toFixed(1) : '—';
+  $('#appAvgStars').innerHTML = renderStars(Math.round(avg));
+  $('#appRevCount').textContent = n===1 ? '1 avaliação' : n+' avaliações';
+  $('#appRating').textContent = n ? avg.toFixed(1)+' ('+n+')' : 'Novo';
+  $('#appReviewList').innerHTML = n ? rs.slice(0,30).map(r=>`
+    <div class="card-flat p-4">
+      <div class="flex items-center justify-between mb-1">
+        <div class="font-bold text-sm">${escapeHtml(r.name)}</div>
+        <div class="text-xs text-stone-400">${new Date(r.createdAt).toLocaleDateString('pt-BR')}</div>
+      </div>
+      <div class="text-sm mb-1">${renderStars(r.rating)}</div>
+      <p class="text-sm text-stone-600 leading-relaxed">${escapeHtml(r.text)}</p>
+    </div>`).join('') : '<p class="text-sm text-stone-500 text-center py-6">Seja o primeiro a avaliar.</p>';
+}
+
+function paintAppStars(){
+  $$('#appRevStars [data-as]').forEach(b=>{ const on = +b.dataset.as <= appState.revRating; b.classList.toggle('star',on); b.classList.toggle('star-empty',!on); });
+}
+paintAppStars();
+
+$('#appRevForm').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const name = field('#appRevName');
+  const text = field('#appRevText');
+  if(!name||!text){ notify('Preencha seu nome e o comentário.','error'); return; }
+  const r = {id:uid(), name, rating:appState.revRating, text, createdAt:Date.now()};
+  if(!await saveDoc('reviews/'+r.id, r, 'a avaliação')) return;
+  $('#appRevName').value=''; $('#appRevText').value=''; appState.revRating=5; paintAppStars();
+  notify('Obrigado pela avaliação!');
+});
+
+/* Gaveta de produto */
+function appUnit(){
+  let t = appState.pd.product.price;
+  appState.pd.addons.forEach(id=>{ const a=ADDONS.find(x=>x.id===id); if(a) t+=a.price; });
+  return t;
+}
+function updateAppSheet(){
+  $('#asQty').textContent = appState.pd.qty;
+  $('#asAddPrice').textContent = '· '+brl(appUnit()*appState.pd.qty);
+}
+function openAppSheet(id){
+  const p = state.products.find(x=>x.id===id); if(!p) return;
+  appState.pd = { product:p, qty:1, addons:new Set() };
+  $('#asImg').src = p.img; $('#asImg').alt = p.name;
+  $('#asCat').textContent = p.cat;
+  $('#asName').textContent = p.name;
+  $('#asDesc').textContent = p.desc||'';
+  $('#asPrice').textContent = brl(p.price);
+  $('#asTag').textContent = p.tag||''; $('#asTag').hidden = !p.tag;
+  $('#asObs').value = '';
+  $('#asAddonsBox').hidden = !p.addons;
+  $('#asAddons').innerHTML = ADDONS.map(a=>`
+    <label class="addon-row">
+      <span class="flex items-center gap-3"><span class="text-xl">${a.emoji}</span><span class="text-sm font-semibold">${a.name}</span></span>
+      <span class="flex items-center gap-3"><span class="text-sm text-stone-500">+ ${brl(a.price)}</span><input type="checkbox" data-aad="${a.id}" class="w-5 h-5 accent-red-600"/></span>
+    </label>`).join('');
+  updateAppSheet();
+  $('#appSheetOverlay').hidden = false; $('#appSheet').hidden = false; $('#appSheet').scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closeAppSheet(){
+  $('#appSheetOverlay').hidden = true; $('#appSheet').hidden = true;
+  document.body.style.overflow = '';
+}
+$('#asAddons').addEventListener('change', e=>{
+  const id = e.target.dataset.aad; if(!id) return;
+  if(e.target.checked) appState.pd.addons.add(id); else appState.pd.addons.delete(id);
+  e.target.closest('.addon-row').classList.toggle('selected', e.target.checked);
+  updateAppSheet();
+});
+$('#asInc').addEventListener('click',()=>{ appState.pd.qty=Math.min(20,appState.pd.qty+1); updateAppSheet(); });
+$('#asDec').addEventListener('click',()=>{ appState.pd.qty=Math.max(1,appState.pd.qty-1); updateAppSheet(); });
+$('#asClose').addEventListener('click', closeAppSheet);
+$('#appSheetOverlay').addEventListener('click', closeAppSheet);
+$('#asAdd').addEventListener('click',()=>{
+  const p = appState.pd.product;
+  const addons = [...appState.pd.addons].map(id=>ADDONS.find(a=>a.id===id)).filter(Boolean);
+  state.cart.push({
+    lineId: uid(),
+    pid: p.id, name: p.name, img: p.img,
+    unit: appUnit(), qty: appState.pd.qty,
+    addons: addons.map(a=>({id:a.id,name:a.name,price:a.price})),
+    obs: field('#asObs')
+  });
+  save(L_CART, state.cart);
+  renderCart();
+  closeAppSheet();
+  notify('Adicionado ao carrinho');
+});
+
+/* Cliques do app: um ouvinte só, por data-atributo */
+$('#viewApp').addEventListener('click', e=>{
+  const el = e.target.closest('[data-open],[data-acat],[data-tab],[data-go],[data-sug],[data-as],[data-arm],[data-ainc],[data-adec]');
+  if(!el) return;
+  const d = el.dataset;
+  if(d.open) openAppSheet(d.open);
+  else if(d.acat){ appState.cat = d.acat; renderAppHome(); }
+  else if(d.tab||d.go){
+    setAppTab(d.tab||d.go);
+    if(d.tab==='search') $('#appSearchInput').focus();
+  }
+  else if(d.sug){ $('#appSearchInput').value = d.sug; appState.search = d.sug; renderAppSearch(); }
+  else if(d.as){ appState.revRating = +d.as; paintAppStars(); }
+  else if(d.arm){ state.cart = state.cart.filter(x=>x.lineId!==d.arm); save(L_CART,state.cart); renderCart(); }
+  else {
+    const l = state.cart.find(x=>x.lineId===(d.ainc||d.adec)); if(!l) return;
+    if(d.ainc) l.qty = Math.min(20,l.qty+1);
+    else { l.qty--; if(l.qty<=0) state.cart = state.cart.filter(x=>x!==l); }
+    save(L_CART,state.cart); renderCart();
+  }
+});
+
+/* ============== KEYBOARD ============== */
+document.addEventListener('keydown', e=>{
+  if(e.key!=='Escape') return;
+  if(!$('#confirmModal').hidden){ closeConfirm(false); return; }
+  if(!$('#successModal').hidden){ closeSuccess(); return; }
+  if(!$('#appSheet').hidden){ closeAppSheet(); return; }
+  if(!$('#prodModal').hidden){ closeProdEdit(); return; }
+  if(!$('#checkoutModal').hidden){ closeCheckout(); return; }
+  if(!$('#cartDrawer').hidden){ closeCart(); return; }
+});
+
+/* ============== BANCO (Firebase) ==============
+   firebase.js carrega o Firebase e chama connectBackend(api).
+   api.db: doc(path).set/update/delete/onSnapshot(next, error), collection(path).orderBy(...).onSnapshot(next, error)
+   api.onAuth(cb): cb({email, isOwner}) ou cb(null); api.signIn(); api.signOut() */
+let _ownerUnsubs = [], _seeded = false;
+function connectBackend(api){
+  backend = api; db = api.db;
+  const docsOf = snap => snap.docs.map(doc=>doc.data());
+  const onErr = name => err => console.warn(name+' listener failed', err);
+
+  db.collection('products').onSnapshot(snap=>{
+    const list = docsOf(snap);
+    // Só conta "banco vazio" quando o servidor confirmou; com produtos, a contagem já vale
+    if(!snap.metadata.fromCache || list.length>0) state.dbProductCount = list.length;
+    seedProductsIfEmpty();
+    if(list.length>0){
+      state.products = sortProducts(list);
+      renderHome();
+      renderAppHome(); renderAppSearch();
+      if(state.adminTab==='products') renderAdminProducts();
+    }
+  }, onErr('products'));
+  db.collection('reviews').orderBy('createdAt','desc').onSnapshot(snap=>{
+    state.reviews = docsOf(snap);
+    renderReviewsPublic();
+    renderAppReviews();
+    if(state.adminTab==='reviews') renderAdminReviews();
+    renderStats();
+  }, onErr('reviews'));
+  // Painel do cliente: só os pedidos que este aparelho fez, um por um pelo id
+  watchMyOrders();
+
+  api.onAuth(account=>{
+    state.account = account;
+    state.isOwner = !!account?.isOwner;
+    // Pedidos e mensagens têm dados de clientes: só o navegador do dono baixa
+    _ownerUnsubs.forEach(stop=>stop()); _ownerUnsubs = [];
+    state.orders = []; state.messages = []; _knownOrders = null;
+    // Saiu da conta (ou a sessão caiu) com um produto aberto: fecha, senão o Salvar seria recusado
+    if(!state.isOwner){ closeProdEdit(); closeConfirm(false); }
+    if(state.isOwner){
+      _ownerUnsubs.push(db.collection('messages').orderBy('createdAt','desc').onSnapshot(snap=>{
+        state.messages = docsOf(snap);
+        if(state.adminTab==='messages') renderAdminMessages();
+        renderStats();
+      }, onErr('messages')));
+      _ownerUnsubs.push(db.collection('orders').orderBy('createdAt','desc').onSnapshot(snap=>{
+        state.orders = docsOf(snap);
+        announceNewOrders(state.orders);
+        if(state.adminTab==='orders') renderAdminOrders();
+        renderStats();
+      }, onErr('orders')));
+      seedProductsIfEmpty();
+    }
+    renderStats();
+    if(OWNER_SITE) renderAdmin();
+  });
+}
+
+/* Banco novo e vazio: na primeira entrada do dono, grava o cardápio inicial */
+async function seedProductsIfEmpty(){
+  if(_seeded || !state.isOwner || state.dbProductCount!==0) return;
+  _seeded = true;
+  for(const p of SEED_PRODUCTS){
+    try{ await db.doc('products/'+p.id).set(p); }catch(err){ console.warn('seed failed', err); }
+  }
+}
+
+async function adminSignIn(){
+  if(!backend){ notify('Não deu para conectar. Verifique a internet e recarregue a página.','error'); return; }
+  try{ await backend.signIn(); }
+  catch(err){
+    console.warn('sign-in failed', err);
+    if(err?.code!=='auth/popup-closed-by-user' && err?.code!=='auth/cancelled-popup-request')
+      notify('Não deu para entrar. Se o navegador bloqueou a janela do Google, permita e tente de novo.','error');
+  }
+}
+const adminSignOut = ()=>backend?.signOut();
+$('#adminSignIn').addEventListener('click', adminSignIn);
+$('#adminSignOut').addEventListener('click', adminSignOut);
+$('#adminGateSignOut').addEventListener('click', adminSignOut);
+
+/* ============== BOOT ============== */
+(function boot(){
+  state.cart = load(L_CART,[]);
+  state.address = load(L_ADDR,null);
+  document.title = SITE_TITLE();
+  route();
+  renderCart();
+  renderMyOrders();
+})();
+</script>
+<script type="module" src="firebase.js"></script>
+</body>
+</html>

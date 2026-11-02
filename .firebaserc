@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "la-brasa-burger-nf"
+  },
+  "targets": {
+    "la-brasa-burger-nf": {
+      "hosting": {
+        "cliente": [
+          "la-brasa-burger-nf"
+        ],
+        "dono": [
+          "la-brasa-dono"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

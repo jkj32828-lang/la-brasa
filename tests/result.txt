@@ -1,0 +1,123 @@
+OK    A1  site: produtos do banco aparecem no cardápio
+OK    A2  site: produto marcado indisponível fica escondido
+OK    A2b site: categorias na ordem da loja (Mais Vendidos primeiro)
+OK    A3  site: filtro de categoria
+OK    A4  site: busca mostra sugestões
+OK    A5  site: Enter na busca abre o produto
+OK    A5b produto: lanche com adicionais mostra "Personalize"
+OK    A6  produto: adicional + quantidade no preço
+OK    A7  produto: Adicionar volta ao cardápio e conta no carrinho
+OK    A8  carrinho: abre com item, adicional e observação
+OK    A9  carrinho: botão +
+OK    A10 carrinho: taxa de entrega R$ 8,99
+OK    A11 carrinho: desconto Pix 5%
+OK    A12 carrinho: − até zerar tira o item
+OK    A13 carrinho: Esc fecha
+OK    A14 produto: observação do lanche anterior não aparece no próximo
+OK    A14b produto: porção sem adicionais esconde "Personalize"
+OK    A15 carrinho: ✕ remove
+OK    A16 pagamento: abre com resumo e total
+OK    A17 pagamento: cartão tira o desconto
+OK    A18 pagamento: Editar volta ao carrinho
+OK    A19 pagamento: sem nome mostra aviso
+OK    A20 pagamento: sem endereço avisa e abre o formulário
+OK    A20b endereço: cidade já vem Nova Friburgo/RJ
+OK    A21 endereço: CEP que não existe avisa
+OK    A21b endereço: máscara do CEP
+OK    A22 endereço: busca do CEP (ViaCEP) preenche rua e bairro
+OK    A23 endereço: salvo aparece no resumo
+OK    A24 pedido: gravado no banco com total e itens certos
+OK    A24b pedido: id longo e aleatório (ninguém adivinha)
+OK    A25 pedido: confirmação aparece e carrinho esvazia
+OK    A26 pedido: confirmação oferece "Acompanhar pedido"
+OK    A27 meus pedidos: abre com o pedido e status Recebido
+OK    A28 meus pedidos: badge com 1 pedido em andamento
+OK    A29 meus pedidos: dono muda para Preparando → cliente vê na hora e recebe aviso
+OK    A30 meus pedidos: Saiu para entrega
+OK    A31 meus pedidos: Entregue tira o badge
+OK    A32 privacidade: cliente só escuta o próprio pedido
+OK    A33 avaliação: gravada no banco
+OK    A34 avaliação: aparece na lista e na média
+OK    A35 avaliação: aviso de obrigado
+OK    A36 contato: mensagem gravada no banco
+OK    A37 site do cliente: #admin não abre o painel (o painel é outro site)
+OK    A38 rodapé: sem link para o painel, com WhatsApp da loja</pre></body></html>
+OK    B1  celular: abre o app direto
+OK    B1b app: 5 abas (Cardápio, Buscar, Carrinho, Pedidos, Avaliações)
+OK    B2  app: cardápio usa o banco e esconde indisponível
+OK    B3  app: filtro de categoria
+OK    B4  app: toque abre a gaveta do produto
+OK    B5  app: adicional + quantidade
+OK    B6  app: Adicionar fecha, avisa e conta no Carrinho
+OK    B7  app: busca por sugestão
+OK    B7b app: porção sem adicionais esconde "Personalize"
+OK    B8  app: busca sem resultado avisa
+OK    B9  app: aba Carrinho com itens e subtotal
+OK    B10 app: + no Carrinho
+OK    B11 app: − no Carrinho
+OK    B12 app: pagamento abre
+OK    B13 app: Editar no pagamento volta para a aba Carrinho do app
+OK    B14 app: pedido grava, confirma e zera o Carrinho
+OK    B15 app: "Acompanhar pedido" abre a aba Pedidos com o pedido
+OK    B16 app: status muda sozinho (Saiu para entrega)
+OK    B17 app: avaliação grava e aparece com a média
+OK    B18 app: Esc fecha a gaveta e destrava a rolagem
+OK    B19 celular: link direto de produto volta ao app
+OK    B20 celular: link #pedidos abre o app na aba Pedidos
+OK    B21 celular: #admin no site do cliente não abre o painel</pre></body></html>
+OK    C1  painel: dono vê o painel
+OK    C2  painel: números (novos/avaliações/mensagens)
+OK    C3  segurança: nome de cliente não roda código no painel
+OK    C4  pedidos: aparecem com itens
+OK    C5  pedidos: filtro Novos
+OK    C6  pedidos: existe filtro para "Saiu p/ entrega"
+OK    C7  pedidos: pagamento em português
+OK    C8  pedidos: avançar status grava
+OK    C9  pedidos: Cancelar pede confirmação
+OK    C10 pedidos: cancelamento grava
+OK    C11 produtos: lista os do banco
+OK    C12 produtos: editar preço grava e atualiza o cardápio
+OK    C12b produtos: categoria sugere as que já existem
+OK    C13 produtos: foto preparada
+OK    C14 produtos: novo produto grava com a foto reduzida (máx. 640px, < 200 KB)
+OK    C15 produtos: novo produto aparece no cardápio
+OK    C16 produtos: excluir
+OK    C17 produtos: reativar volta ao cardápio
+OK    C18 avaliações: excluir
+OK    C19 mensagens: marcar como lida
+OK    C20 mensagens: Voltar na confirmação não exclui
+OK    C21 mensagens: excluir
+OK    C22 pedido novo chegando: aparece na lista, avisa na tela e na aba do navegador</pre></body></html>
+OK    D1  pedido que não grava mostra erro (banco recusa a gravação)
+OK    D2  carrinho fica guardado quando o pedido falha (banco recusa a gravação)
+OK    D3  avaliação que não grava mostra erro (banco recusa a gravação)
+OK    D4  mensagem que não grava mostra erro (banco recusa a gravação)</pre></body></html>
+OK    E1  pedido que não grava mostra erro (visitante sem login, sem banco)
+OK    E2  carrinho fica guardado quando o pedido falha (visitante sem login, sem banco)
+OK    E3  avaliação que não grava mostra erro (visitante sem login, sem banco)
+OK    E4  mensagem que não grava mostra erro (visitante sem login, sem banco)</pre></body></html>
+OK    F1  painel: conta que não é do dono fica de fora
+OK    F2  painel: avisa qual conta entrou e oferece sair
+OK    F3  privacidade: conta comum não baixa pedidos
+OK    F4  sair mostra o botão Entrar com Google
+OK    F5  entrar com a conta do dono abre o painel e baixa pedidos
+OK    F6  banco com produtos: entrada do dono não regrava o cardápio
+OK    F7  Sair do painel fecha o painel e para de baixar pedidos</pre></body></html>
+OK    G1  banco vazio: o cardápio completo da loja continua carregado
+OK    G2  banco vazio: primeira entrada do dono grava o cardápio inteiro
+OK    G3  produtos gravados usam as fotos do site
+OK    G4  todo produto tem foto, preço e categoria
+OK    G5  ids de produto não se repetem</pre></body></html>
+OK    H1  site do cliente: pedido confirmado
+OK    H2  site do dono: abre direto no painel, sem cardápio nem carrinho
+OK    H3  site do dono: o pedido chegou com cliente, itens, adicional, observação e pagamento
+OK    H4  site do dono: contador de pedidos novos
+OK    H5  site do dono: avançar para Preparando
+OK    H6  site do cliente: Meus pedidos mostra Preparando (mudança feita no site do dono)
+OK    H7  site do cliente: cancelamento feito no site do dono aparece para o cliente</pre></body></html>
+OK    I1  dono: status que não grava mostra erro
+OK    I2  dono: botão volta a funcionar depois do erro
+OK    I3  dono: produto que não grava mostra erro e não fecha o formulário
+OK    I4  dono: exclusão que não grava mostra erro</pre></body></html>
+OK    J1  CEP: serviço fora do ar avisa para preencher à mão
+OK    J2  CEP: endereço à mão salva</pre></body></html>

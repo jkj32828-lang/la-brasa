@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Dono = conta Google desta lista (a mesma de public/config.js)
+    function isOwner() {
+      return request.auth != null
+        && request.auth.token.email in ['jkj32828@gmail.com']
+        && request.auth.token.email_verified == true;
+    }
+    function text(v, max) {
+      return v is string && v.size() > 0 && v.size() <= max;
+    }
+
+    // Cardápio: todo mundo lê, só o dono muda
+    match /products/{id} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+
+    // Pedidos: qualquer pessoa cria um pedido novo.
+    // Ler UM pedido pelo id é liberado: o id tem 30 caracteres aleatórios e só o aparelho que fez o pedido conhece
+    // (é assim que o cliente acompanha o status). Listar todos, mudar o status ou apagar: só o dono.
+    match /orders/{id} {
+      allow get: if true;
+      allow list, update, delete: if isOwner();
+      allow create: if isValidOrder(request.resource.data, id);
+    }
+    function isValidOrder(o, id) {
+      return o.keys().hasOnly(['id','code','createdAt','status','customer','address','payment','items','subtotal','delivery','discount','total'])
+        && o.id == id && id.size() >= 20 && o.status == 'new'
+        && text(o.code, 10) && o.createdAt is number
+        && o.customer is map && o.customer.keys().hasOnly(['name','phone'])
+        && text(o.customer.name, 80) && text(o.customer.phone, 30)
+        && o.address is map && o.address.keys().hasOnly(['cep','street','number','complement','neighborhood','city','state'])
+        && text(o.address.street, 120) && text(o.address.number, 20) && text(o.address.city, 60) && text(o.address.state, 2)
+        && o.payment in ['pix','card','cash']
+        && o.items is list && o.items.size() > 0 && o.items.size() <= 40
+        && o.subtotal is number && o.delivery is number && o.discount is number && o.total is number;
+    }
+
+    // Avaliações: todo mundo lê e cria; só o dono apaga
+    match /reviews/{id} {
+      allow read: if true;
+      allow delete: if isOwner();
+      allow create: if request.resource.data.keys().hasOnly(['id','name','rating','text','createdAt'])
+        && request.resource.data.id == id
+        && text(request.resource.data.name, 60) && text(request.resource.data.text, 1000)
+        && request.resource.data.rating is int
+        && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+        && request.resource.data.createdAt is number;
+    }
+
+    // Mensagens: qualquer pessoa envia; só o dono lê, marca como lida ou apaga
+    match /messages/{id} {
+      allow read, update, delete: if isOwner();
+      allow create: if request.resource.data.keys().hasOnly(['id','name','contact','body','createdAt','read'])
+        && request.resource.data.id == id && request.resource.data.read == false
+        && text(request.resource.data.name, 80) && text(request.resource.data.contact, 120)
+        && text(request.resource.data.body, 2000)
+        && request.resource.data.createdAt is number;
+    }
+  }
+}
